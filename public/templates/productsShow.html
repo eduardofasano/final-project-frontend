@@ -1,0 +1,12 @@
+<section>
+  <h1>Product</h1>
+  <ul>
+    <li ng-repeat="product in productsShow">
+      <img ng-src=" {{ product.image }}" alt="Description" />
+      <h2>{{ product.name }}</h2>
+      <h4>Price: {{ product.max_price }}/{{ product.unit }}</h4>
+    </li>
+  </ul>
+  <!-- <a ng-if="productsShow.isLoggedIn()" ui-sref="productsEdit({ id: productsShow.product.id })" class="button">Edit</a>
+  <button ng-if="productsShow.isLoggedIn()" ng-click="productsShow.delete()">Delete</button> -->
+</section>
