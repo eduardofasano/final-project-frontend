@@ -1,0 +1,10 @@
+// @import "../../bower_components/skeleton/css/skeleton";
+@import "../../bower_components/normalize-scss/sass/normalize/import-now"; // import normalize-scss
+@import "../../bower_components/skeleton-sass/skeleton/core/config"; // Skeleton Sass core loader
+
+// import default theme variables
+@import "../../bower_components/skeleton-sass/skeleton/themes/fresh/vars"; // theme variable overrides
+
+// import default theme styles
+@import "../../bower_components/skeleton-sass/skeleton/themes/fresh/base"; // theme base styles
+@import "../../bower_components/skeleton-sass/skeleton/themes/fresh/skeleton"; // theme grid styles

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="finalProject">
+<head>
+  <meta charset="utf-8">
+  <title>Final Project</title>
+  <link rel="stylesheet" href="/css/vendor.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/vendor.js" charset="utf-8"></script>
+  <script src="/js/app.js" charset="utf-8"></script>
+  <script src="/js/controllers/users.js" charset="utf-8"></script>
+  <script src="/js/controllers/auth.js" charset="utf-8"></script>
+  <script src="/js/controllers/main.js" charset="utf-8"></script>
+</head>
+<body ng-controller="MainController as main">
+  <div class="container">
+    <nav class="nav">
+      <ul>
+        <li ui-sref="usersIndex">Home</li>
+        <li ui-sref="usersIndex">Users</li>
+        <li ng-if="!main.isLoggedIn()"><a ui-sref="register" ui-sref-active="active">Register</a></li>
+        <li ng-if="!main.isLoggedIn()"><a ui-sref="login" ui-sref-active="active">Login</a></li>
+        <li ng-if="main.isLoggedIn()"><a ng-click="main.logout()" ui-sref="login">Logout</a></li>
+      </ul>
+    </nav>
+    <main ui-view></main>
+  </div>
+</body>
+</html>

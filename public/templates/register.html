@@ -1,0 +1,24 @@
+<form novalidate ng-submit="register.submit()">
+  <div>
+    <label>Username</label>
+    <input type="text" placeholder="Username" ng-model="register.user.username">
+  </div>
+  <div>
+    <label>Email</label>
+    <input type="email" placeholder="Email" ng-model="register.user.email">
+  </div>
+  <div>
+    <label>Role</label>
+    <input type="text" placeholder="Role" ng-model="register.user.role">
+  </div>
+  <div>
+    <label>Password</label>
+    <input type="password" placeholder="Password" ng-model="register.user.password">
+  </div>
+  <div>
+    <label>Password Confirmation</label>
+    <input type="password" placeholder="Password Confirmation" ng-model="register.user.password_confirmation">
+  </div>
+
+  <button>Register</button>
+</form>

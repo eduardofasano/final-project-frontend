@@ -1,0 +1,7 @@
+<section>
+  <h2>{{ usersShow.user.username }}</h2>
+  <h4>{{ usersShow.user.email }}</h4>
+
+  <a ng-if="usersShow.isLoggedIn()" ui-sref="usersEdit({ id: usersShow.user.id })" class="button">Edit</a>
+  <button ng-if="usersShow.isLoggedIn()" ng-click="usersShow.delete()">Delete</button>
+</section>
