@@ -5,6 +5,9 @@
       <a ui-sref="productsShow({ id: product.id })">
         <img ng-src=" {{ product.image }}" alt="Description", width="250" />
         <h2>{{ product.name }}</h2>
+        <a ui-sref="usersShow({ id: product.seller.id })">
+          <h3>{{ product.seller.username }}</h3>
+        </a>
         <h4>Price: {{ product.max_price }}/{{ product.unit }}</h4>
       </a>
     </li>
