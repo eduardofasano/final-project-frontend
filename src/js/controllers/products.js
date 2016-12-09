@@ -1,9 +1,10 @@
 angular.module('finalProject')
-  .controller('ProductsIndexController', ProductsIndexController)
-  .controller('ProductsNewController', ProductsNewController)
-  .controller('ProductsShowController', ProductsShowController)
-  .controller('ProductsEditController', ProductsEditController);
+.controller('ProductsIndexController', ProductsIndexController)
+.controller('ProductsNewController', ProductsNewController)
+.controller('ProductsShowController', ProductsShowController)
+.controller('ProductsEditController', ProductsEditController);
 
+//INDEX
 ProductsIndexController.$inject = ['Product'];
 function ProductsIndexController(Product) {
   const productsIndex = this;
@@ -11,6 +12,7 @@ function ProductsIndexController(Product) {
   productsIndex.all = Product.query();
 }
 
+//NEW
 ProductsNewController.$inject = ['Product', '$state','$auth'];
 function ProductsNewController(Product, $state, $auth) {
   const productsNew = this;
@@ -29,12 +31,24 @@ function ProductsNewController(Product, $state, $auth) {
   productsNew.create = create;
 }
 
-
+//SHOW & DELETE
 ProductsShowController.$inject = ['Product','$state', '$auth'];
 function ProductsShowController(Product, $state, $auth) {
   const productsShow = this;
+  const payload = $auth.getPayload();
+  const userId = payload.id ;
+  console.log(userId);
+  productsShow.isOwnProduct = false;
 
-  productsShow.product = Product.get($state.params);
+  Product.get($state.params).$promise.then((data) => {
+    productsShow.product = data;
+    console.log(productsShow.product);
+    if(productsShow.product.seller.id === userId) {
+      productsShow.isOwnProduct = true;
+      console.log(productsShow.product.seller.id);
+      console.log(productsShow.isOwnProduct);
+    }
+  });
 
   function deleteProduct() {
     console.log('fired!');
@@ -47,6 +61,7 @@ function ProductsShowController(Product, $state, $auth) {
   productsShow.isLoggedIn = $auth.isAuthenticated;
 }
 
+//EDIT CONTROLLER
 ProductsEditController.$inject = ['Product','$state', '$auth'];
 function ProductsEditController(Product, $state, $auth) {
   const productsEdit = this;

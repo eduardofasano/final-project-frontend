@@ -52,6 +52,23 @@ function Router($stateProvider, $urlRouterProvider) {
       url: '/products/:id/edit',
       templateUrl: '/templates/productsEdit.html',
       controller: 'ProductsEditController as productsEdit'
+    })
+
+  //Order Routes
+    .state('ordersIndex', {
+      url: '/orders',
+      templateUrl: '/templates/ordersIndex.html',
+      controller: 'OrdersIndexController as ordersIndex'
+    })
+    .state('ordersNew', {
+      url: '/orders/new',
+      templateUrl: '/templates/ordersNew.html',
+      controller: 'OrdersNewController as ordersNew'
+    })
+    .state('ordersShow', {
+      url: '/orders/:id',
+      templateUrl: '/templates/ordersShow.html',
+      controller: 'OrdersShowController as ordersShow'
     });
 
   $urlRouterProvider.otherwise('/users');

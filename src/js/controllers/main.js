@@ -24,6 +24,10 @@ function MainController($auth, $state, $rootScope) {
       $state.go('login');
       main.message = 'You must be logged in to go there!';
     }
+    // Check whether or not the current user is a seller
+    if($auth.isAuthenticated()){
+      main.isSeller = $auth.getPayload().role === 'seller';
+    }
   }
 
   $rootScope.$on('$stateChangeStart', secureState);
