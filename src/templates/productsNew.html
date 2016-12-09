@@ -1,0 +1,37 @@
+<section class="row">
+  <form ng-submit="productsNew.create()">
+    <div class="twelve columns">
+      <label>Product Name</label>
+      <input type="text" name="name" placeholder="Insert your product's name..." ng-model="productsNew.product.name" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Quantity</label>
+      <input type="text" name="quantity" placeholder="Insert the numerical gross quantity of the product you are selling..." ng-model="productsNew.product.quantity" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Unit</label>
+      <input type="text" name="unit" placeholder="Insert the unit of mesaurement (e.g. k.g, litres, grams) for your product" ng-model="productsNew.product.releaseDate" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Starting Price</label>
+      <input type="text" name="unit" placeholder="Insert the starting price (ceiling) per unit for your product..." ng-model="productsNew.product.max_price" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Price Floor</label>
+      <input type="text" name="posterImage" placeholder="What's the lowest price you'd be happy to accept per unit for your product..." ng-model="productsNew.product.price_floor" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Description</label>
+      <input type="text" name="description" placeholder="Insert a description of the story behind your product..." ng-model="productsNew.product.description" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Image</label>
+      <input type="text" name="description" placeholder="Insert an image URL of your product..." ng-model="productsNew.product.image" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Duration of Sale</label>
+      <input type="text" name="description" placeholder="How many hours would you like your product to be available for online?" ng-model="productsNew.product.duration" class="u-full-width">
+    </div>
+    <button>Create</button>
+  </form>
+</section>

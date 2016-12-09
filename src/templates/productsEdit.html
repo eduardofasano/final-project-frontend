@@ -1,0 +1,13 @@
+<section class="row">
+  <form ng-submit="productsEdit.update()">
+    <div class="twelve columns">
+      <label>Product Name</label>
+      <input type="text" name="name" value="productsEdit.product.name" ng-model="productsEdit.product.name" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Image</label>
+      <input type="text" name="image" value="productsEdit.product.image" ng-model="productsEdit.product.image" class="u-full-width">
+    </div>
+    <button>Update</button>
+  </form>
+</section>

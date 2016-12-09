@@ -1,5 +1,6 @@
 angular.module('finalProject')
   .controller('ProductsIndexController', ProductsIndexController)
+  .controller('ProductsNewController', ProductsNewController)
   .controller('ProductsShowController', ProductsShowController)
   .controller('ProductsEditController', ProductsEditController);
 
@@ -10,6 +11,25 @@ function ProductsIndexController(Product) {
   productsIndex.all = Product.query();
 }
 
+ProductsNewController.$inject = ['Product', '$state','$auth'];
+function ProductsNewController(Product, $state, $auth) {
+  const productsNew = this;
+
+  productsNew.product = {};
+
+  function create() {
+    const payload = $auth.getPayload();
+    console.log('fired');
+    console.log(payload);
+
+    Product.save(productsNew.product, () => {
+      $state.go('productsIndex');
+    });
+  }
+  productsNew.create = create;
+}
+
+
 ProductsShowController.$inject = ['Product','$state', '$auth'];
 function ProductsShowController(Product, $state, $auth) {
   const productsShow = this;
@@ -17,7 +37,8 @@ function ProductsShowController(Product, $state, $auth) {
   productsShow.product = Product.get($state.params);
 
   function deleteProduct() {
-    productsShow.product.$remove(() => {
+    console.log('fired!');
+    productsShow.product.$remove({id: productsShow.product.id}, () => {
       $state.go('productsIndex');
     });
   }

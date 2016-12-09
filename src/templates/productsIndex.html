@@ -2,9 +2,11 @@
   <h1>All Products On Sale</h1>
   <ul>
     <li ng-repeat="product in productsIndex.all">
-      <img ng-src=" {{ product.image }}" alt="Description" />
-      <h2>{{ product.name }}</h2>
-      <h4>Price: {{ product.max_price }}/{{ product.unit }}</h4>
+      <a ui-sref="productsShow({ id: product.id })">
+        <img ng-src=" {{ product.image }}" alt="Description", width="250" />
+        <h2>{{ product.name }}</h2>
+        <h4>Price: {{ product.max_price }}/{{ product.unit }}</h4>
+      </a>
     </li>
   </ul>
 </section>

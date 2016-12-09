@@ -38,6 +38,11 @@ function Router($stateProvider, $urlRouterProvider) {
       templateUrl: '/templates/productsIndex.html',
       controller: 'ProductsIndexController as productsIndex'
     })
+    .state('productsNew', {
+      url: '/products/new',
+      templateUrl: '/templates/productsNew.html',
+      controller: 'ProductsNewController as productsNew'
+    })
     .state('productsShow', {
       url: '/products/:id',
       templateUrl: '/templates/productsShow.html',
