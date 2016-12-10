@@ -4,6 +4,9 @@ angular.module('finalProject')
 MainController.$inject = ['$auth','$state', '$rootScope'];
 function MainController($auth, $state, $rootScope) {
   const main = this;
+  const payload = $auth.getPayload();
+  const user = payload;
+  main.user = user;
 
   main.isLoggedIn = $auth.isAuthenticated;
   main.message = null;

@@ -1,62 +1,83 @@
 angular.module('finalProject')
 .controller('OrdersIndexController', OrdersIndexController)
 .controller('OrdersNewController', OrdersNewController);
-// .controller('OrdersShowController', OrdersShowController)
+// .controller('OrdersShowController', OrdersShowController);
 // .controller('OrdersEditController', OrdersEditController);
 
 //INDEX
-OrdersIndexController.$inject = ['Order'];
-function OrdersIndexController(Order) {
+OrdersIndexController.$inject = ['User','Order', '$state', '$auth'];
+function OrdersIndexController(User, Order, $state, $auth) {
   const ordersIndex = this;
+  const payload = $auth.getPayload();
+  const user = payload;
+  ordersIndex.user = user;
 
-  ordersIndex.all = Order.query();
+  ordersIndex.showEditFormValue = false;
+
+  ordersIndex.all = Order.query({ buyer_id: $auth.getPayload().id });
+
+  User.get({id: user.id}).$promise.then((data) => {
+    ordersIndex.currentUser = data;
+  });
+
+  function deleteOrder(order) {
+    Order.delete({id: order.id}, () => {
+      const index = ordersIndex.all.indexOf(order);
+      ordersIndex.all.splice(index, 1);
+      $state.go('ordersIndex');
+    });
+  }
+
+  function updateOrder(order) {
+    console.log('clicked');
+    console.log(order.id);
+    Order.update({id: order.id});
+  }
+
+  function showOrders(product) {
+    console.log('clicked');
+    console.log(product);
+    product.showOrderList = !product.showOrderList;
+  }
+
+  function toggleEditForm(order) {
+    console.log('clicked');
+    order.showEditFormValue = !order.showEditFormValue;
+  }
+
+  ordersIndex.showOrders = showOrders;
+  ordersIndex.delete = deleteOrder;
+  ordersIndex.updateOrder = updateOrder;
+  ordersIndex.toggleEditForm = toggleEditForm;
 }
 
 //NEW
-OrdersNewController.$inject = ['Order', '$state','$auth'];
-function OrdersNewController(Order, $state, $auth) {
+OrdersNewController.$inject = ['Order', '$state'];
+function OrdersNewController(Order, $state) {
   const ordersNew = this;
 
   ordersNew.order = {};
   ordersNew.order.product_id = $state.params.id;
 
   function create() {
-    const payload = $auth.getPayload();
-    console.log('fired');
-    console.log(payload);
-
-
+    // const payload = $auth.getPayload();
 
     Order.save(ordersNew.order, () => {
-      $state.go('ordersShow');
-    });
-  }
-
-  function addOrder() {
-    console.log('give me some cheese!');
-  }
-
-  ordersNew.create = create;
-  ordersNew.addOrder = addOrder;
-}
-
-//SHOW & DELETE
-OrdersShowController.$inject = ['Order','$state', '$auth'];
-function OrdersShowController(Order, $state, $auth) {
-  const ordersShow = this;
-  const payload = $auth.getPayload();
-  const userId = payload.id ;
-  console.log(userId);
-
-  ordersShow.Order = Order.get($state.params);
-
-  function deleteOrder() {
-    console.log('fired!');
-    ordersShow.order.$remove({id: ordersShow.order.id}, () => {
       $state.go('ordersIndex');
     });
   }
-
-  ordersShow.delete = deleteOrder;
-  ordersShow.isLoggedIn = $auth.isAuthenticated;
+  ordersNew.create = create;
 }
+
+// //SHOW & DELETE
+// OrdersShowController.$inject = ['Order','$state', '$auth'];
+// function OrdersShowController(Order, $state, $auth) {
+//   const ordersShow = this;
+//   const payload = $auth.getPayload();
+//   const userId = payload.id ;
+//   console.log(userId);
+//
+//   ordersShow.Order = Order.get($state.params);
+//
+//   ordersShow.isLoggedIn = $auth.isAuthenticated;
+// }

@@ -1,4 +1,5 @@
-<section ng-controller="UsersShowController as usersShow" >
+<section>
+  
   <h1>Product</h1>
   <ul>
     <li>
@@ -12,16 +13,19 @@
     </li>
   </ul>
 
-  <!--POST ORDER-->
-  <section ng-controller="OrdersNewController as ordersNew" >
-    <div class="twelve columns">
-      <h4 ng-model="ordersNew.order.product">Order {{ productsShow.product.name }} </h4>
-      <label>Order Quantity</label>
-      <input type="text" name="name" placeholder="Insert order quantity..." ng-model="ordersNew.order.quantity" class="u-full-width">
-      <!-- <input type="hidden" name="product_id" ng-model="productsShow.product.id"> -->
-    <button ng-show="!productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()" ng-click="ordersNew.create()">Order</button>
+  <!--POST ORDER FOR BUYER-->
+  <section ng-show="!productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()">
+    <form ng-submit="productsShow.createOrder()">
+      <div class="twelve columns">
+        <h4 ng-model="productsShow.order.product">Order {{ productsShow.product.name }} </h4>
+        <label>Order Quantity</label>
+        <input type="text" name="name" placeholder="Insert order quantity..." ng-model="productsShow.order.quantity" class="u-full-width">
+        <!-- <input type="hidden" name="product_id" ng-model="productsShow.product.id"> -->
+      <button>Order</button>
+    </form>
   </section>
 
+  <!--EDIT OBJECT FOR SELLER-->
   <a ng-show="productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()" ui-sref="productsEdit({ id: productsShow.product.id })" class="button">Edit</a>
   <button ng-show="productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()" ng-click="productsShow.delete({ id: productsShow.product.id })">Delete</button>
 

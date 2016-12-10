@@ -64,12 +64,12 @@ function Router($stateProvider, $urlRouterProvider) {
       url: '/orders/new',
       templateUrl: '/templates/ordersNew.html',
       controller: 'OrdersNewController as ordersNew'
-    })
-    .state('ordersShow', {
-      url: '/orders/:id',
-      templateUrl: '/templates/ordersShow.html',
-      controller: 'OrdersShowController as ordersShow'
     });
+    // .state('ordersShow', {
+    //   url: '/orders/:id',
+    //   templateUrl: '/templates/ordersShow.html',
+    //   controller: 'OrdersShowController as ordersShow'
+    // });
 
-  $urlRouterProvider.otherwise('/users');
+  $urlRouterProvider.otherwise('/products');
 }

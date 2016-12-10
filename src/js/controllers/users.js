@@ -6,7 +6,6 @@ angular.module('finalProject')
 UsersIndexController.$inject = ['User'];
 function UsersIndexController(User) {
   const usersIndex = this;
-
   usersIndex.all = User.query();
 }
 
@@ -18,7 +17,7 @@ function UsersShowController(User, $state, $auth) {
 
   function deleteUser() {
     usersShow.user.$remove(() => {
-      $state.go('usersIndex');
+      $state.go('productsIndex');
     });
   }
 

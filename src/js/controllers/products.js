@@ -32,11 +32,11 @@ function ProductsNewController(Product, $state, $auth) {
 }
 
 //SHOW & DELETE
-ProductsShowController.$inject = ['Product','$state', '$auth'];
-function ProductsShowController(Product, $state, $auth) {
+ProductsShowController.$inject = ['Product', 'Order', '$state', '$auth'];
+function ProductsShowController(Product, Order, $state, $auth) {
   const productsShow = this;
   const payload = $auth.getPayload();
-  const userId = payload.id ;
+  const userId = payload.id;
   console.log(userId);
   productsShow.isOwnProduct = false;
 
@@ -59,6 +59,18 @@ function ProductsShowController(Product, $state, $auth) {
 
   productsShow.delete = deleteProduct;
   productsShow.isLoggedIn = $auth.isAuthenticated;
+
+  productsShow.order = {
+    product_id: $state.params.id
+  };
+
+  function createOrder() {
+    Order.save(productsShow.order, () => {
+      $state.go('ordersIndex');
+    });
+  }
+
+  productsShow.createOrder = createOrder;
 }
 
 //EDIT CONTROLLER
