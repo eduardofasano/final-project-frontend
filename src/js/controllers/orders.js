@@ -5,8 +5,8 @@ angular.module('finalProject')
 // .controller('OrdersEditController', OrdersEditController);
 
 //INDEX
-OrdersIndexController.$inject = ['User','Order', '$state', '$auth'];
-function OrdersIndexController(User, Order, $state, $auth) {
+OrdersIndexController.$inject = ['Product','User','Order', '$state', '$auth'];
+function OrdersIndexController(Product, User, Order, $state, $auth) {
   const ordersIndex = this;
   const payload = $auth.getPayload();
   const user = payload;
@@ -21,17 +21,26 @@ function OrdersIndexController(User, Order, $state, $auth) {
   });
 
   function deleteOrder(order) {
+    const orderQuantity = order.quantity;
+    const product = order.product;
+
+    console.log('Before deleted order; product.current_quantity:', product.current_quantity);
+    console.log('orderQuantity:', orderQuantity);
     Order.delete({id: order.id}, () => {
       const index = ordersIndex.all.indexOf(order);
       ordersIndex.all.splice(index, 1);
-      $state.go('ordersIndex');
+      product.current_quantity -= orderQuantity;
+      Product.update({id: product.id}, product, (updatedProduct) => {
+        console.log('After deleted order; updatedProduct.current_quantity:', updatedProduct.current_quantity);
+        $state.go('ordersIndex');
+      });
     });
   }
 
-  function updateOrder(order) {
-    console.log('clicked');
-    console.log(order.id);
-    Order.update({id: order.id});
+  function update(order) {
+    Order.update({id: order.id}, order, () => {
+      $state.go('ordersIndex');
+    });
   }
 
   function showOrders(product) {
@@ -47,13 +56,13 @@ function OrdersIndexController(User, Order, $state, $auth) {
 
   ordersIndex.showOrders = showOrders;
   ordersIndex.delete = deleteOrder;
-  ordersIndex.updateOrder = updateOrder;
+  ordersIndex.update = update;
   ordersIndex.toggleEditForm = toggleEditForm;
 }
 
 //NEW
-OrdersNewController.$inject = ['Order', '$state'];
-function OrdersNewController(Order, $state) {
+OrdersNewController.$inject = ['Product','Order', '$state'];
+function OrdersNewController(Product, Order, $state) {
   const ordersNew = this;
 
   ordersNew.order = {};
@@ -68,16 +77,3 @@ function OrdersNewController(Order, $state) {
   }
   ordersNew.create = create;
 }
-
-// //SHOW & DELETE
-// OrdersShowController.$inject = ['Order','$state', '$auth'];
-// function OrdersShowController(Order, $state, $auth) {
-//   const ordersShow = this;
-//   const payload = $auth.getPayload();
-//   const userId = payload.id ;
-//   console.log(userId);
-//
-//   ordersShow.Order = Order.get($state.params);
-//
-//   ordersShow.isLoggedIn = $auth.isAuthenticated;
-// }

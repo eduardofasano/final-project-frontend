@@ -1,5 +1,5 @@
 <section>
-  
+
   <h1>Product</h1>
   <ul>
     <li>
@@ -19,8 +19,11 @@
       <div class="twelve columns">
         <h4 ng-model="productsShow.order.product">Order {{ productsShow.product.name }} </h4>
         <label>Order Quantity</label>
-        <input type="text" name="name" placeholder="Insert order quantity..." ng-model="productsShow.order.quantity" class="u-full-width">
-        <!-- <input type="hidden" name="product_id" ng-model="productsShow.product.id"> -->
+        <input
+          type="number"
+          name="quantity"
+          ng-model="productsShow.order.quantity"
+          class="u-full-width">
       <button>Order</button>
     </form>
   </section>

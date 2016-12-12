@@ -3,28 +3,29 @@
   <h1>Here are your orders...</h1>
   <ul>
     <li ng-repeat="order in ordersIndex.all">
-      <!-- <a ui-sref="ordersShow({ id: order.id })"> -->
         <h3>Product: {{ order.product.name }}</h3>
         <img ng-src="{{ order.product.image }}", width="250"/>
         <h4>Ordered Quantity: {{ order.quantity }}</h4>
         <h4>Seller: {{ order.product.seller.username }}</h4>
         <button ng-click="ordersIndex.toggleEditForm(order)">Edit</button>
         <button ng-click="ordersIndex.delete(order)">Delete</button>
-      <!-- </a> -->
 
       <!-- HIDDEN/SHOWN BUYER EDIT FORM -->
-      <form ng-show="order.showEditFormValue">
+      <div ng-show="order.showEditFormValue">
         <h4>Edit your order below...</h4>
-          <input type="text" name="name" placeholder="Insert order quantity..." value="{{order.quantity}}" class="u-full-width">
-        <button ng-click="ordersIndex.toggleEditForm(order)">Hide</button>
-        <button ng-click="ordersIndex.updateOrder(order); ordersIndex.toggleEditForm(order)">Update</button>
-      </form>
+        <div ng-show="order.showEditFormValue">
+          <form ng-submit="ordersIndex.update(order)">
+            <input type="text" name="name" placeholder="Insert order quantity..." ng-model="order.quantity" class="u-full-width">
+            <button type="submit" ng-click="ordersIndex.toggleEditForm(order)">Update</button>
+            <button type="button" ng-click="ordersIndex.toggleEditForm(order)">Hide</button
+          </form>
+      </div>
     </li>
   </ul>
 </section>
 
 <!-- SELLER SECTION -->
-<section>
+<section ng-show="main.isSeller">
   <ul ng-repeat="product in ordersIndex.currentUser.products">
     <li class="productCard" ng-click="ordersIndex.showOrders(product)">
       <h3>Product: {{ product.name }}</h3>

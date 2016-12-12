@@ -37,12 +37,17 @@ function ProductsShowController(Product, Order, $state, $auth) {
   const productsShow = this;
   const payload = $auth.getPayload();
   const userId = payload.id;
+  const maxOrderRatio = .20;
   console.log(userId);
   productsShow.isOwnProduct = false;
 
   Product.get($state.params).$promise.then((data) => {
     productsShow.product = data;
     console.log(productsShow.product);
+    const maxOrderSize = (productsShow.product.quantity)*(maxOrderRatio);
+    productsShow.maxOrderSize = maxOrderSize;
+    productsShow.order.quantity = maxOrderSize;
+    console.log(maxOrderSize);
     if(productsShow.product.seller.id === userId) {
       productsShow.isOwnProduct = true;
       console.log(productsShow.product.seller.id);
@@ -65,8 +70,11 @@ function ProductsShowController(Product, Order, $state, $auth) {
   };
 
   function createOrder() {
-    Order.save(productsShow.order, () => {
-      $state.go('ordersIndex');
+    Order.save(productsShow.order, (orderSaved) => {
+      productsShow.product.current_quantity += orderSaved.quantity;
+      Product.update({id: productsShow.product.id}, productsShow.product, () => {
+        $state.go('ordersIndex');
+      });
     });
   }
 
