@@ -16,6 +16,13 @@ function OrdersIndexController(Product, User, Order, $state, $auth) {
 
   ordersIndex.all = Order.query({ buyer_id: $auth.getPayload().id });
 
+  ordersIndex.all.$promise.then((orders) => {
+    console.log('orders:', orders);
+    orders.forEach(order => {
+      order.originalQuantity = order.quantity;
+    });
+  });
+
   User.get({id: user.id}).$promise.then((data) => {
     ordersIndex.currentUser = data;
   });
@@ -38,8 +45,29 @@ function OrdersIndexController(Product, User, Order, $state, $auth) {
   }
 
   function update(order) {
-    Order.update({id: order.id}, order, () => {
-      $state.go('ordersIndex');
+    Order.get({id: order.id}).$promise.then((data) => {
+      ordersIndex.orderId = data.id;
+      console.log('order.originalQuantity: ', order.originalQuantity);
+
+      Product.get({id: order.product.id}).$promise.then((data) => {
+        ordersIndex.orderId = data.id;
+        const product = data;
+        const originalCurrentQuantity = (data.current_quantity);
+        const productId = data.id;
+        console.log('originalCurrentQuantity: ', originalCurrentQuantity);
+        console.log('productId: ', productId);
+        console.log('editedOrderedQuantity: ', order.quantity);
+
+        product.current_quantity = (originalCurrentQuantity - order.originalQuantity + order.quantity);
+        console.log('edited current quantity', product.current_quantity);
+
+        Order.update({id: order.id}, order, () => {
+          Product.update({id: productId}, product, (updatedProduct) => {
+            console.log('updatedProduct.current_quantity:', updatedProduct.current_quantity);
+          });
+          $state.go('ordersIndex');
+        });
+      });
     });
   }
 

@@ -13,18 +13,29 @@
       <!-- HIDDEN/SHOWN BUYER EDIT FORM -->
       <div ng-show="order.showEditFormValue">
         <h4>Edit your order below...</h4>
+        <div>Total Available Cheese: {{order.product.quantity}}</div>
+        <div>Already Ordered Cheese (pre-update): {{order.product.current_quantity}}</div>
+        <div>Original Cheese Order (pre-update): {{order.originalQuantity}}</div>
+        {{order.product.quantity - (order.product.current_quantity - order.originalQuantity)}}
         <div ng-show="order.showEditFormValue">
           <form ng-submit="ordersIndex.update(order)">
-            <input type="text" name="name" placeholder="Insert order quantity..." ng-model="order.quantity" class="u-full-width">
-            <button type="submit" ng-click="ordersIndex.toggleEditForm(order)">Update</button>
-            <button type="button" ng-click="ordersIndex.toggleEditForm(order)">Hide</button
+            <input
+              type="number"
+              name="quantity"
+              placeholder="Insert order quantity..."
+              ng-model="order.quantity"
+              max="{{order.product.quantity - (order.product.current_quantity - order.originalQuantity)}}"
+              min="1"
+              class="u-full-width">
+            <button type="submit">Update</button>
+            <button type="button" ng-click="ordersIndex.toggleEditForm(order)">Hide</button>
           </form>
       </div>
     </li>
   </ul>
 </section>
 
-<!-- SELLER SECTION -->
+<!-- HIDDEN/SHOWN SELLER SECTION -->
 <section ng-show="main.isSeller">
   <ul ng-repeat="product in ordersIndex.currentUser.products">
     <li class="productCard" ng-click="ordersIndex.showOrders(product)">

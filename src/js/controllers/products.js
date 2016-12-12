@@ -62,9 +62,6 @@ function ProductsShowController(Product, Order, $state, $auth) {
     });
   }
 
-  productsShow.delete = deleteProduct;
-  productsShow.isLoggedIn = $auth.isAuthenticated;
-
   productsShow.order = {
     product_id: $state.params.id
   };
@@ -78,6 +75,8 @@ function ProductsShowController(Product, Order, $state, $auth) {
     });
   }
 
+  productsShow.delete = deleteProduct;
+  productsShow.isLoggedIn = $auth.isAuthenticated;
   productsShow.createOrder = createOrder;
 }
 
