@@ -10,6 +10,15 @@ function ProductsIndexController(Product) {
   const productsIndex = this;
 
   productsIndex.all = Product.query();
+  productsIndex.queryString = '';
+
+  // function filter(product) {
+  //   const regex = new RegExp(productsIndex.queryString, 'i');
+  //
+  //   return regex.test(product.name) || regex.test(product.seller);
+  // }
+
+  productsIndex.filter = { name: ''};
 }
 
 //NEW

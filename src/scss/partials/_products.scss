@@ -1,0 +1,32 @@
+.products {
+  list-style: none;
+  &__single:nth-child(3n+1) {
+    margin-left: 0;
+  }
+  &__single-image {
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    &:after { // responsive square hack
+      content: "";
+      display: block;
+      padding-bottom: 100%;
+    }
+    &:hover {
+      .products__single-details {
+        bottom: 0;
+      }
+    }
+  }
+  &__single-details {
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 10px;
+    position: absolute;
+    bottom: -140px;
+    left: 0;
+    right: 0;
+    transition: all 0.4s ease;
+  }
+}

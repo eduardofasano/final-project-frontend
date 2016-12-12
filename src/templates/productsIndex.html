@@ -1,15 +1,19 @@
-<section>
-  <h1>All Products On Sale</h1>
-  <ul>
-    <li ng-repeat="product in productsIndex.all">
+<h1>All Products On Sale</h1>
+  <h3>Search for products...</h3>
+  <input type="text" ng-model="productsIndex.filter.name" placeholder="Search by product names...">
+  <ul class="row products">
+    <li ng-repeat="product in productsIndex.all | filter: productsIndex.filter " class="four columns products__single">
       <a ui-sref="productsShow({ id: product.id })">
-        <img ng-src=" {{ product.image }}" alt="Description", width="250" />
-        <h2>{{ product.name }}</h2>
-        <a ui-sref="usersShow({ id: product.seller.id })">
-          <h3>{{ product.seller.username }}</h3>
-        </a>
-        <h4>Price: {{ product.max_price }}/{{ product.unit }}</h4>
+        <!-- <img ng-src=" {{ product.image }}" alt="Description", width="250" /> -->
+        <div class="products__single-image" style="background-image:url('{{ product.image }}')">
+          <div class="products__single-details">
+            <h2>{{ product.name }}</h2>
+            <a ui-sref="usersShow({ id: product.seller.id })">
+              <h3>{{ product.seller.username }}</h3>
+            </a>
+            <h4>Price: {{ product.currency }} {{ product.max_price }}/{{ product.unit }}</h4>
+          </div>
+        </div>
       </a>
     </li>
   </ul>
-</section>

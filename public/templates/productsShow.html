@@ -1,33 +1,39 @@
 <section>
 
-  <h1>Product</h1>
+  <h1>{{ productsShow.product.name }}</h1>
   <ul>
     <li>
       <img ng-src="{{ productsShow.product.image }}", width="650"/>
-      <h2>{{ productsShow.product.name }}</h2>
-      <h4>Price: {{ productsShow.product.max_price }}/{{ productsShow.product.unit }}</h4>
-      <h4>Available Quantity: {{ productsShow.product.quantity - productsShow.product.current_quantity }} {{ productsShow.product.unit }}</h4>
       <a ui-sref="usersShow({ id: productsShow.product.seller.id })">
-        <h3>{{ productsShow.product.seller.username }}</h3>
+        <h3>Sold by: {{ productsShow.product.seller.username }}</h3>
       </a>
+      <section ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
+        <h4>Price: {{ productsShow.product.currency }} {{ productsShow.product.max_price }}/{{ productsShow.product.unit }}</h4>
+        <h4>Available Quantity: {{ productsShow.product.quantity - productsShow.product.current_quantity }} {{ productsShow.product.unit }}</h4>
+      </section>
+      <section ng-show="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
+        <h3>OUT OF STOCK</h3>
+      </section>
     </li>
   </ul>
 
   <!--POST ORDER FOR BUYER-->
-  <section ng-show="!productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()">
-    <form ng-submit="productsShow.createOrder()">
-      <div class="twelve columns">
-        <h4 ng-model="productsShow.order.product">Order {{ productsShow.product.name }} </h4>
-        <label>Order Quantity</label>
-        <input
-          type="number"
-          name="quantity"
-          ng-model="productsShow.order.quantity"
-          class="u-full-width"
-          max="{{ productsShow.product.quantity - productsShow.product.current_quantity }}"
-          min="1">
-      <button>Order</button>
-    </form>
+  <section ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
+    <section ng-show="!productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()">
+      <form ng-submit="productsShow.createOrder()">
+        <div class="twelve columns">
+          <h4 ng-model="productsShow.order.product">Order {{ productsShow.product.name }} </h4>
+          <label>Order Quantity ({{ productsShow.product.unit }})</label>
+          <input
+            type="number"
+            name="quantity"
+            ng-model="productsShow.order.quantity"
+            class="u-full-width"
+            max="{{ productsShow.product.quantity - productsShow.product.current_quantity }}"
+            min="1">
+        <button>Order</button>
+      </form>
+    </section>
   </section>
 
   <!--EDIT OBJECT FOR SELLER-->

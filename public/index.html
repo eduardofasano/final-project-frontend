@@ -9,21 +9,21 @@
   <script src="/js/app.js" charset="utf-8"></script>
 </head>
 <body ng-controller="MainController as main">
-  <div class="container">
-    <nav class="nav">
-      <ul>
-        <li ng-if="main.isLoggedIn()"><a ui-sref="productsIndex()">Home</a></li>
-        <!-- <li ui-sref="usersIndex"><a ui-sref="productsIndex()">Home</a></li> -->
-        <!-- <li ui-sref="usersIndex">Users</li> -->
-        <li ng-if="!main.isLoggedIn()"><a ui-sref="register" ui-sref-active="active">Register</a></li>
-        <li ng-if="!main.isLoggedIn()"><a ui-sref="login" ui-sref-active="active">Login</a></li>
-        <li ng-if="main.isLoggedIn()"><a ng-click="main.logout()" ui-sref="login">Logout</a></li>
-        <li ng-if="main.isLoggedIn()" ng-show="main.isSeller"><a ui-sref="productsNew()">New Product</a></li>
-        <li ng-if="main.isLoggedIn()" ng-show="main.isSeller"><a ui-sref="usersShow({id: main.user.id})">Your Products</a></li>
-        <li ng-if="main.isLoggedIn()" ng-show="main.isSeller"><a ui-sref="ordersIndex()">Your Orders</a></li>
-        <li ng-if="main.isLoggedIn()" ng-show="!main.isSeller"><a ui-sref="ordersIndex()">Your Cart</a></li>
-      </ul>
-    </nav>
+  <nav class="nav">
+    <ul class="container">
+      <li ng-if="main.isLoggedIn()"><a ui-sref="productsIndex()">Home</a></li>
+      <!-- <li ui-sref="usersIndex"><a ui-sref="productsIndex()">Home</a></li> -->
+      <!-- <li ui-sref="usersIndex">Users</li> -->
+      <li ng-if="!main.isLoggedIn()"><a ui-sref="register" ui-sref-active="active">Register</a></li>
+      <li ng-if="!main.isLoggedIn()"><a ui-sref="login" ui-sref-active="active">Login</a></li>
+      <li ng-if="main.isLoggedIn()"><a ng-click="main.logout()" ui-sref="login">Logout</a></li>
+      <li ng-if="main.isLoggedIn()" ng-show="main.isSeller"><a ui-sref="productsNew()">New Product</a></li>
+      <li ng-if="main.isLoggedIn()" ng-show="main.isSeller"><a ui-sref="usersShow({id: main.user.id})">Your Products</a></li>
+      <li ng-if="main.isLoggedIn()" ng-show="main.isSeller"><a ui-sref="ordersIndex()">Your Orders</a></li>
+      <li ng-if="main.isLoggedIn()" ng-show="!main.isSeller"><a ui-sref="ordersIndex()">Your Cart</a></li>
+    </ul>
+  </nav>
+    <div class="container">
     <!-- Is user a seller? {{main.isSeller}} -->
     <main ui-view></main>
   </div>

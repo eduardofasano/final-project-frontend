@@ -65,11 +65,6 @@ function Router($stateProvider, $urlRouterProvider) {
       templateUrl: '/templates/ordersNew.html',
       controller: 'OrdersNewController as ordersNew'
     });
-    // .state('ordersShow', {
-    //   url: '/orders/:id',
-    //   templateUrl: '/templates/ordersShow.html',
-    //   controller: 'OrdersShowController as ordersShow'
-    // });
 
   $urlRouterProvider.otherwise('/products');
 }
