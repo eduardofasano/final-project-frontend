@@ -6,7 +6,7 @@
         <h4>{{ order.product.name }}</h4>
         <img ng-src="{{ order.product.image }}", width="250"/>
         <h5>Ordered Quantity: {{ order.quantity }}</h5>
-        <h5>Current Price: {{ order.product.currency }}{{ order.product.max_price }}/{{ order.product.unit }}</h5>
+        <h5>Current Price: {{ order.product.currency }}{{ order.product.final_price | number:2 }}/{{ order.product.unit }}</h5>
         <h5>Seller: {{ order.product.seller.username }}</h5>
         <button ng-click="ordersIndex.toggleEditForm(order)">Edit</button>
         <button ng-click="ordersIndex.delete(order)">Delete</button>

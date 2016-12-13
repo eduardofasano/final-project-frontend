@@ -3,8 +3,8 @@ angular.module('finalProject')
 .controller('OrdersNewController', OrdersNewController);
 
 //INDEX
-OrdersIndexController.$inject = ['Product','User','Order', '$state', '$auth'];
-function OrdersIndexController(Product, User, Order, $state, $auth) {
+OrdersIndexController.$inject = ['Product','User','Order', '$state', '$auth', 'PriceHelper'];
+function OrdersIndexController(Product, User, Order, $state, $auth, PriceHelper) {
   const ordersIndex = this;
   const payload = $auth.getPayload();
   const user = payload;
@@ -47,6 +47,20 @@ function OrdersIndexController(Product, User, Order, $state, $auth) {
       const index = ordersIndex.all.indexOf(order);
       ordersIndex.all.splice(index, 1);
       product.current_quantity -= orderQuantity;
+      console.log('BEFORE product.final_price:', product.final_price);
+
+      product.final_price = PriceHelper.calculateCurrentPricePerUnit(
+        product.min_price,
+        product.max_price,
+        product.quantity,
+        product.current_quantity
+      );
+      console.log('  product.min_price:', product.min_price);
+      console.log('  product.max_price:', product.max_price);
+      console.log('  product.quantity:', product.quantity);
+      console.log('  product.current_quantity:', product.current_quantity);
+      console.log('AFTER product.final_price:', product.final_price);
+      
       Product.update({id: product.id}, product, (updatedProduct) => {
         console.log('After deleted order; updatedProduct.current_quantity:', updatedProduct.current_quantity);
         $state.go('ordersIndex');
@@ -59,21 +73,31 @@ function OrdersIndexController(Product, User, Order, $state, $auth) {
       ordersIndex.orderId = data.id;
       console.log('order.originalQuantity: ', order.originalQuantity);
 
-      Product.get({id: order.product.id}).$promise.then((data) => {
-        ordersIndex.orderId = data.id;
-        const product = data;
-        const originalCurrentQuantity = (data.current_quantity);
-        const productId = data.id;
+      Product.get({id: order.product.id}).$promise.then((product) => {
+        ordersIndex.orderId = product.id;
+        const originalCurrentQuantity = (product.current_quantity);
         console.log('originalCurrentQuantity: ', originalCurrentQuantity);
-        console.log('productId: ', productId);
         console.log('editedOrderedQuantity: ', order.quantity);
 
         product.current_quantity = (originalCurrentQuantity - order.originalQuantity + order.quantity);
         console.log('edited current quantity', product.current_quantity);
 
         Order.update({id: order.id}, order, () => {
-          Product.update({id: productId}, product, (updatedProduct) => {
+          console.log('BEFORE product.final_price:', product.final_price);
+          product.final_price = PriceHelper.calculateCurrentPricePerUnit(
+            product.min_price,
+            product.max_price,
+            product.quantity,
+            product.current_quantity
+          );
+          console.log('  product.min_price:', product.min_price);
+          console.log('  product.max_price:', product.max_price);
+          console.log('  product.quantity:', product.quantity);
+          console.log('  product.current_quantity:', product.current_quantity);
+          console.log('AFTER product.final_price:', product.final_price);
+          Product.update({id: product.id}, product, (updatedProduct) => {
             console.log('updatedProduct.current_quantity:', updatedProduct.current_quantity);
+            console.log('updatedProduct.final_price:', updatedProduct.final_price);
           });
           $state.go('ordersIndex');
         });
