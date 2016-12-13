@@ -8,7 +8,7 @@
         <h3>Sold by: {{ productsShow.product.seller.username }}</h3>
       </a>
       <section ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
-        <h4>Price: {{ productsShow.product.currency }} {{ productsShow.product.max_price }}/{{ productsShow.product.unit }}</h4>
+        <h4>Current Price: {{ productsShow.product.currency }} {{ productsShow.product.max_price }}/{{ productsShow.product.unit }}</h4>
         <h4>Available Quantity: {{ productsShow.product.quantity - productsShow.product.current_quantity }} {{ productsShow.product.unit }}</h4>
       </section>
       <section ng-show="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
@@ -31,7 +31,9 @@
             class="u-full-width"
             max="{{ productsShow.product.quantity - productsShow.product.current_quantity }}"
             min="1">
-        <button>Order</button>
+            <button type="button" ng-click="productsShow.plusOne()" ng-disabled="productsShow.order.quantity >= (productsShow.product.quantity - productsShow.product.current_quantity)">+1</button>
+            <button type="button" ng-disabled="productsShow.order.quantity <= 1" ng-click="productsShow.minusOne()">-1</button>
+        <button type="submit">Order</button>
       </form>
     </section>
   </section>

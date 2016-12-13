@@ -55,7 +55,7 @@ function ProductsShowController(Product, Order, $state, $auth) {
     console.log(productsShow.product);
     const maxOrderSize = (productsShow.product.quantity)*(maxOrderRatio);
     productsShow.maxOrderSize = maxOrderSize;
-    productsShow.order.quantity = maxOrderSize;
+    productsShow.order.quantity = 1;
     console.log(maxOrderSize);
     if(productsShow.product.seller.id === userId) {
       productsShow.isOwnProduct = true;
@@ -63,6 +63,18 @@ function ProductsShowController(Product, Order, $state, $auth) {
       console.log(productsShow.isOwnProduct);
     }
   });
+
+  function plusOne() {
+    console.log('clicked, add one');
+    productsShow.order.quantity++;
+    console.log(productsShow.order.quantity);
+  }
+
+  function minusOne() {
+    console.log('clicked, add one');
+    productsShow.order.quantity--;
+    console.log(productsShow.order.quantity);
+  }
 
   function deleteProduct() {
     console.log('fired!');
@@ -84,6 +96,8 @@ function ProductsShowController(Product, Order, $state, $auth) {
     });
   }
 
+  productsShow.plusOne = plusOne;
+  productsShow.minusOne = minusOne;
   productsShow.delete = deleteProduct;
   productsShow.isLoggedIn = $auth.isAuthenticated;
   productsShow.createOrder = createOrder;

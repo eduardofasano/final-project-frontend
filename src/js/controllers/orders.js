@@ -1,8 +1,6 @@
 angular.module('finalProject')
 .controller('OrdersIndexController', OrdersIndexController)
 .controller('OrdersNewController', OrdersNewController);
-// .controller('OrdersShowController', OrdersShowController);
-// .controller('OrdersEditController', OrdersEditController);
 
 //INDEX
 OrdersIndexController.$inject = ['Product','User','Order', '$state', '$auth'];
@@ -26,6 +24,18 @@ function OrdersIndexController(Product, User, Order, $state, $auth) {
   User.get({id: user.id}).$promise.then((data) => {
     ordersIndex.currentUser = data;
   });
+
+  function plusOne(order) {
+    console.log('clicked, add one');
+    order.quantity++;
+    console.log(order.quantity);
+  }
+
+  function minusOne(order) {
+    console.log('clicked, add one');
+    order.quantity--;
+    console.log(order.quantity);
+  }
 
   function deleteOrder(order) {
     const orderQuantity = order.quantity;
@@ -83,6 +93,8 @@ function OrdersIndexController(Product, User, Order, $state, $auth) {
   }
 
   ordersIndex.showOrders = showOrders;
+  ordersIndex.plusOne = plusOne;
+  ordersIndex.minusOne = minusOne;
   ordersIndex.delete = deleteOrder;
   ordersIndex.update = update;
   ordersIndex.toggleEditForm = toggleEditForm;

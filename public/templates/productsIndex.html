@@ -11,7 +11,8 @@
             <a ui-sref="usersShow({ id: product.seller.id })">
               <h3>{{ product.seller.username }}</h3>
             </a>
-            <h4>Price: {{ product.currency }} {{ product.max_price }}/{{ product.unit }}</h4>
+            <h5>Current Price: {{ product.currency }} {{ product.max_price }}/{{ product.unit }}</h5>
+            <timer />
           </div>
         </div>
       </a>

@@ -3,10 +3,11 @@
   <h1>Here are your orders...</h1>
   <ul>
     <li ng-repeat="order in ordersIndex.all">
-        <h3>Product: {{ order.product.name }}</h3>
+        <h4>{{ order.product.name }}</h4>
         <img ng-src="{{ order.product.image }}", width="250"/>
-        <h4>Ordered Quantity: {{ order.quantity }}</h4>
-        <h4>Seller: {{ order.product.seller.username }}</h4>
+        <h5>Ordered Quantity: {{ order.quantity }}</h5>
+        <h5>Current Price: {{ order.product.currency }}{{ order.product.max_price }}/{{ order.product.unit }}</h5>
+        <h5>Seller: {{ order.product.seller.username }}</h5>
         <button ng-click="ordersIndex.toggleEditForm(order)">Edit</button>
         <button ng-click="ordersIndex.delete(order)">Delete</button>
 
@@ -27,6 +28,8 @@
               max="{{order.product.quantity - (order.product.current_quantity - order.originalQuantity)}}"
               min="1"
               class="u-full-width">
+            <button type="button" ng-click="ordersIndex.plusOne(order)">+1</button>
+            <button type="button" ng-click="ordersIndex.minusOne(order)" ng-disable="order.quantity <= 0">-1</button>
             <button type="submit">Update</button>
             <button type="button" ng-click="ordersIndex.toggleEditForm(order)">Hide</button>
           </form>
