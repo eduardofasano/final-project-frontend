@@ -12,12 +12,6 @@ function ProductsIndexController(Product) {
   productsIndex.all = Product.query();
   productsIndex.queryString = '';
 
-  // function filter(product) {
-  //   const regex = new RegExp(productsIndex.queryString, 'i');
-  //
-  //   return regex.test(product.name) || regex.test(product.seller);
-  // }
-
   productsIndex.filter = { name: ''};
 }
 
@@ -41,8 +35,8 @@ function ProductsNewController(Product, $state, $auth) {
 }
 
 //SHOW & DELETE
-ProductsShowController.$inject = ['Product', 'Order', '$state', '$auth'];
-function ProductsShowController(Product, Order, $state, $auth) {
+ProductsShowController.$inject = ['Product', 'Order', '$state', '$auth', 'PriceHelper'];
+function ProductsShowController(Product, Order, $state, $auth, PriceHelper) {
   const productsShow = this;
   const payload = $auth.getPayload();
   const userId = payload.id;
@@ -90,6 +84,12 @@ function ProductsShowController(Product, Order, $state, $auth) {
   function createOrder() {
     Order.save(productsShow.order, (orderSaved) => {
       productsShow.product.current_quantity += orderSaved.quantity;
+      productsShow.product.final_price = PriceHelper.calculateCurrentPricePerUnit(
+        productsShow.product.min_price,
+        productsShow.product.max_price,
+        productsShow.product.quantity,
+        productsShow.product.current_quantity
+      );
       Product.update({id: productsShow.product.id}, productsShow.product, () => {
         $state.go('ordersIndex');
       });
