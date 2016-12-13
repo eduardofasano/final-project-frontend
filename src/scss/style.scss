@@ -1,8 +1,15 @@
 @import 'partials/products';
+@import 'partials/header';
+@import'base/base';
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Permanent+Marker|Source+Sans+Pro');
 
-.nav {
-  background-color: gray;
-  ul li {
-    display: inline-block;
-  }
+$font-size: Helvetica, sans-serif;
+$primary-color: black;
+$text-align: center;
+$font-family: 'Permanent Marker', cursive;
+
+
+body {
+  background-color: #f9f9f9;
+  font-size: 18px;
 }

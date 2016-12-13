@@ -1,20 +1,21 @@
-<h1>All Products On Sale</h1>
+<section>
+  <h1>All Products On Sale</h1>
   <h3>Search for products...</h3>
-  <input type="text" ng-model="productsIndex.filter.name" placeholder="Search by product names...">
-  <ul class="row products">
-    <li ng-repeat="product in productsIndex.all | filter: productsIndex.filter " class="four columns products__single">
+  <input class="searchBar" type="text" ng-model="productsIndex.filter.name" placeholder="Search by product names...">
+  <ul class="row cards">
+    <li ng-repeat="product in productsIndex.all | filter: productsIndex.filter " class="four columns cards__single">
       <a ui-sref="productsShow({ id: product.id })">
         <!-- <img ng-src=" {{ product.image }}" alt="Description", width="250" /> -->
-        <div class="products__single-image" style="background-image:url('{{ product.image }}')">
-          <div class="products__single-details">
-            <h2>{{ product.name }}</h2>
+        <div class="cards__single-image" style="background-image:url('{{ product.image }}')">
+          <div class="cards__single-details">
+            <h4 class="productName">{{ product.name }}</h4>
             <a ui-sref="usersShow({ id: product.seller.id })">
-              <h3>{{ product.seller.username }}</h3>
+              <h4 class="sellerName">Sold by: {{ product.seller.username }}</h4>
             </a>
-            <h5>Current Price: {{ product.currency }} {{ product.final_price | number:2 }}/{{ product.unit }}</h5>
-            <timer />
+            <h4 class="priceInfo">Current Price: {{ product.currency }}{{ product.final_price | number:2 }}/{{ product.unit }}</h4>
           </div>
         </div>
       </a>
     </li>
   </ul>
+</section>

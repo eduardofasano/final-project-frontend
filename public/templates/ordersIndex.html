@@ -29,7 +29,7 @@
               min="1"
               class="u-full-width">
             <button type="button" ng-click="ordersIndex.plusOne(order)">+1</button>
-            <button type="button" ng-click="ordersIndex.minusOne(order)" ng-disable="order.quantity <= 0">-1</button>
+            <button type="button" ng-click="ordersIndex.minusOne(order)" ng-disabled="order.quantity<=1">-1</button>
             <button type="submit">Update</button>
             <button type="button" ng-click="ordersIndex.toggleEditForm(order)">Hide</button>
           </form>

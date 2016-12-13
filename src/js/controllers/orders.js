@@ -60,7 +60,7 @@ function OrdersIndexController(Product, User, Order, $state, $auth, PriceHelper)
       console.log('  product.quantity:', product.quantity);
       console.log('  product.current_quantity:', product.current_quantity);
       console.log('AFTER product.final_price:', product.final_price);
-      
+
       Product.update({id: product.id}, product, (updatedProduct) => {
         console.log('After deleted order; updatedProduct.current_quantity:', updatedProduct.current_quantity);
         $state.go('ordersIndex');

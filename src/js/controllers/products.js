@@ -42,21 +42,33 @@ function ProductsShowController(Product, Order, $state, $auth, PriceHelper) {
   const userId = payload.id;
   const maxOrderRatio = .20;
   console.log(userId);
-  productsShow.isOwnProduct = false;
+  // productsShow.isOwnProduct = false;
 
   Product.get($state.params).$promise.then((data) => {
     productsShow.product = data;
-    console.log(productsShow.product);
+    console.log(productsShow.product.orders);
+
     const maxOrderSize = (productsShow.product.quantity)*(maxOrderRatio);
     productsShow.maxOrderSize = maxOrderSize;
+    productsShow.countdown = parseInt(productsShow.product.duration)*60*60;
     productsShow.order.quantity = 1;
     console.log(maxOrderSize);
+
     if(productsShow.product.seller.id === userId) {
       productsShow.isOwnProduct = true;
       console.log(productsShow.product.seller.id);
       console.log(productsShow.isOwnProduct);
     }
+
   });
+
+  function checkForOrders() {
+    const buyerIds = productsShow.product.orders.map((order) => {
+      return order.buyer.id;
+    });
+
+    return buyerIds.includes(payload.id);
+  }
 
   function plusOne() {
     console.log('clicked, add one');
@@ -96,6 +108,7 @@ function ProductsShowController(Product, Order, $state, $auth, PriceHelper) {
     });
   }
 
+  productsShow.checkForOrders = checkForOrders;
   productsShow.plusOne = plusOne;
   productsShow.minusOne = minusOne;
   productsShow.delete = deleteProduct;

@@ -1,24 +1,30 @@
 <section>
-
-  <h1>{{ productsShow.product.name }}</h1>
-  <ul>
-    <li>
-      <img ng-src="{{ productsShow.product.image }}", width="650"/>
-      <a ui-sref="usersShow({ id: productsShow.product.seller.id })">
-        <h3>Sold by: {{ productsShow.product.seller.username }}</h3>
-      </a>
-      <section ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
-        <h4>Current Price: {{ productsShow.product.currency }} {{ productsShow.product.max_price }}/{{ productsShow.product.unit }}</h4>
-        <h4>Available Quantity: {{ productsShow.product.quantity - productsShow.product.current_quantity }} {{ productsShow.product.unit }}</h4>
-      </section>
-      <section ng-show="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
-        <h3>OUT OF STOCK</h3>
-      </section>
-    </li>
-  </ul>
+  <timer class="timer" countdown="productsShow.countdown" interval="1000" ng-if="productsShow.countdown">Flash Sale Ends In: {{days}} day{{dayS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
+  <img ng-src="{{ productsShow.product.image }}", width="650"/>
+  <section class="infoBox">
+    <ul>
+      <li>
+        <h1 class="title">{{ productsShow.product.name }}</h1>
+        <a ui-sref="usersShow({ id: productsShow.product.seller.id })">
+          <h3>Sold by: {{ productsShow.product.seller.username }}</h3>
+        </a>
+        <section ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
+          <h4>Current Price: {{ productsShow.product.currency }} {{ productsShow.product.final_price }}/{{ productsShow.product.unit }}</h4>
+          <h4>Available Quantity: {{ productsShow.product.quantity - productsShow.product.current_quantity }} {{ productsShow.product.unit }}</h4>
+        </section>
+        <section ng-show="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
+          <h3>OUT OF STOCK</h3>
+        </section>
+      </li>
+    </ul>
+  </section>
 
   <!--POST ORDER FOR BUYER-->
-  <section ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
+  <section ng-if="productsShow.checkForOrders()">
+    <button ui-sref="ordersIndex">Update Order</button>
+  </section>
+
+  <section ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0 || productsShow.checkForOrders()">
     <section ng-show="!productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()">
       <form ng-submit="productsShow.createOrder()">
         <div class="twelve columns">

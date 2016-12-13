@@ -1,0 +1,36 @@
+@import'base/base';
+
+header {
+  nav {
+    border-top: 5px solid $brand-color;
+    background-color: white;
+    border-bottom: 5px solid #FFFFFF;
+    height: 50px;
+    padding: 0 20px;
+    .container {
+      li {
+        text-decoration: none;
+        line-height: 50px;
+        font-size: 22px;
+        display: inline-block;
+        float: right;
+        margin-left: 10px;
+        color: #000000;
+        a {
+          text-decoration: none;
+          color: #000000;
+          transition: all 0.2s ease;
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+        &.logo {
+          float: left;
+          font-family: 'Permanent Marker', cursive;
+          font-weight: bold;
+          font-size: 30px;
+        }
+      }
+    }
+  }
+}
