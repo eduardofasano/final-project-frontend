@@ -26,11 +26,11 @@
 
       <!--POST ORDER FOR BUYER-->
       <div ng-hide="productsShow.countdown <= 0">
-          <section ng-if="productsShow.checkForOrders()">
+          <section ng-if="productsShow.product && productsShow.checkForOrders()">
             <button ui-sref="ordersIndex">Update Order</button>
           </section>
 
-          <div ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0 || productsShow.checkForOrders()">
+          <div ng-if="productsShow.product" ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0 || productsShow.checkForOrders()">
             <div ng-show="!productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()">
               <form ng-submit="productsShow.createOrder()">
                 <div class="twelve columns">

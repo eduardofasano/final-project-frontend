@@ -35,15 +35,15 @@ function ProductsNewController(Product, $state, $auth) {
 }
 
 //SHOW & DELETE
-ProductsShowController.$inject = ['Product', 'Order', '$state', '$auth', 'PriceHelper'];
-function ProductsShowController(Product, Order, $state, $auth, PriceHelper) {
+ProductsShowController.$inject = ['Product', 'Order', '$state', '$auth', 'PriceHelper', '$window'];
+function ProductsShowController(Product, Order, $state, $auth, PriceHelper, $window) {
   const productsShow = this;
   const payload = $auth.getPayload();
   const userId = payload.id;
   const maxOrderRatio = .20;
   console.log(userId);
   // productsShow.isOwnProduct = false;
-
+  productsShow.product = null;
   Product.get($state.params).$promise.then((data) => {
     productsShow.product = data;
     console.log(productsShow.product.orders);
@@ -61,7 +61,7 @@ function ProductsShowController(Product, Order, $state, $auth, PriceHelper) {
     }
 
     //TIME CALCULATION
-    productsShow.countdown = moment().diff(new moment(productsShow.product.enddate))*-1/1000;
+    productsShow.countdown = $window.moment().diff(new $window.moment(productsShow.product.enddate))*-1/1000;
     // productsShow.countdown = 0;
     console.log(productsShow.countdown);
 

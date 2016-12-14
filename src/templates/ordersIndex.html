@@ -1,6 +1,5 @@
 <!-- BUYER SECTION -->
 <section>
-  <h1>Here are your orders...</h1>
   <ul>
     <li ng-repeat="order in ordersIndex.all">
         <h4>{{ order.product.name }}</h4>
@@ -40,8 +39,9 @@
 
 <!-- HIDDEN/SHOWN SELLER SECTION -->
 <section ng-show="main.isSeller">
+  <h1>Here are your outstanding orders...</h1>
   <ul ng-repeat="product in ordersIndex.currentUser.products">
-    <li class="productCard" ng-click="ordersIndex.showOrders(product)">
+    <li ng-hide="product.orders.length < 1"class="productCard" ng-click="ordersIndex.showOrders(product)">
       <h3>Product: {{ product.name }}</h3>
       <h5>Number of Orders: {{product.orders.length}}</h5>
       <img ng-src="{{ product.image }}", width="250"/>

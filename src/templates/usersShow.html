@@ -7,9 +7,6 @@
         <div class="cards__single-image" style="background-image:url('{{ product.image }}')">
           <div class="cards__single-details">
             <h4 class="productName">{{ product.name }}</h4>
-            <a ui-sref="usersShow({ id: product.seller.id })">
-              <h4 class="sellerName">Sold by: {{ product.seller.username }}</h4>
-            </a>
             <h4 class="priceInfo">Current Price: {{ product.currency }}{{ product.final_price | number:2 }}/{{ product.unit }}</h4>
           </div>
         </div>
