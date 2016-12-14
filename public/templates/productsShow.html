@@ -1,13 +1,9 @@
 <section>
-  <button ng-click="productsShow.calcCurrentDate()">Calc Date</button>
-  <div>
-    {{ productsShow.currentDate}}
-  </div>
-  <timer class="timer" countdown="productsShow.countdown" interval="1000" ng-if="productsShow.countdown">Flash Sale Ends In: {{days}} day{{dayS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
+  <timer class="timer" countdown="productsShow.countdown" interval="1000" ng-if="productsShow.countdown >= 0">Flash Sale Ends In: {{days}} day{{dayS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
   <section class="row">
-    <section class="six columns photoBox">
+    <div class="six columns photoBox">
       <img ng-src="{{ productsShow.product.image }}", width="650"/>
-    </section>
+    </div>
     <section class="six columns infoBox">
       <ul>
         <li>
@@ -19,38 +15,44 @@
             <h4>Current Price: {{ productsShow.product.currency }} {{ productsShow.product.final_price }}/{{ productsShow.product.unit }}</h4>
             <h4>Available Quantity: {{ productsShow.product.quantity - productsShow.product.current_quantity }} {{ productsShow.product.unit }}</h4>
           </section>
-          <section ng-show="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
+          <div ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) >= 0 || productsShow.countdown <= 0">
             <h3>OUT OF STOCK</h3>
-          </section>
+          </div>
+          <div ng-show="productsShow.countdown <= 0">
+            <h3>Sorry, the flash sale is now over...</h3>
+          </div>
         </li>
       </ul>
-      <!--POST ORDER FOR BUYER-->
-      <section ng-if="productsShow.checkForOrders()">
-        <button ui-sref="ordersIndex">Update Order</button>
-      </section>
 
-      <section ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0 || productsShow.checkForOrders()">
-        <section ng-show="!productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()">
-          <form ng-submit="productsShow.createOrder()">
-            <div class="twelve columns">
-              <h4 ng-model="productsShow.order.product">Order {{ productsShow.product.name }} </h4>
-              <label>Order Quantity ({{ productsShow.product.unit }})</label>
-              <input
-                type="number"
-                name="quantity"
-                ng-model="productsShow.order.quantity"
-                class="u-full-width"
-                max="{{ productsShow.product.quantity - productsShow.product.current_quantity }}"
-                min="1">
-                <button type="button" ng-click="productsShow.plusOne()" ng-disabled="productsShow.order.quantity >= (productsShow.product.quantity - productsShow.product.current_quantity)">+1</button>
-                <button type="button" ng-disabled="productsShow.order.quantity <= 1" ng-click="productsShow.minusOne()">-1</button>
-            <button type="submit">Order</button>
-          </form>
-        </section>
+      <!--POST ORDER FOR BUYER-->
+      <div ng-hide="productsShow.countdown <= 0">
+          <section ng-if="productsShow.checkForOrders()">
+            <button ui-sref="ordersIndex">Update Order</button>
+          </section>
+
+          <div ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0 || productsShow.checkForOrders()">
+            <div ng-show="!productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()">
+              <form ng-submit="productsShow.createOrder()">
+                <div class="twelve columns">
+                  <h4 ng-model="productsShow.order.product">Order {{ productsShow.product.name }} </h4>
+                  <label>Order Quantity ({{ productsShow.product.unit }})</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    ng-model="productsShow.order.quantity"
+                    class="u-full-width"
+                    max="{{ productsShow.product.quantity - productsShow.product.current_quantity }}"
+                    min="1">
+                    <button type="button" ng-click="productsShow.plusOne()" ng-disabled="productsShow.order.quantity >= (productsShow.product.quantity - productsShow.product.current_quantity)">+1</button>
+                    <button type="button" ng-disabled="productsShow.order.quantity <= 1" ng-click="productsShow.minusOne()">-1</button>
+                <button type="submit">Order</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </section>
     </section>
-  </section>
-
 
   <!--EDIT OBJECT FOR SELLER-->
   <a ng-show="productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()" ui-sref="productsEdit({ id: productsShow.product.id })" class="button">Edit</a>

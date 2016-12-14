@@ -50,7 +50,7 @@ function ProductsShowController(Product, Order, $state, $auth, PriceHelper) {
 
     const maxOrderSize = (productsShow.product.quantity)*(maxOrderRatio);
     productsShow.maxOrderSize = maxOrderSize;
-    productsShow.countdown = parseInt(productsShow.product.duration)*60*60;
+    // productsShow.countdown = parseInt(productsShow.product.duration)*60*60;
     productsShow.order.quantity = 1;
     console.log(maxOrderSize);
 
@@ -60,12 +60,12 @@ function ProductsShowController(Product, Order, $state, $auth, PriceHelper) {
       console.log(productsShow.isOwnProduct);
     }
 
-  });
+    //TIME CALCULATION
+    productsShow.countdown = moment().diff(new moment(productsShow.product.enddate))*-1/1000;
+    // productsShow.countdown = 0;
+    console.log(productsShow.countdown);
 
-  function calcCurrentDate() {
-    const now = moment().format('MMMM');    
-    console.log('clicked', now);
-  }
+  });
 
   function checkForOrders() {
     const buyerIds = productsShow.product.orders.map((order) => {
@@ -113,7 +113,6 @@ function ProductsShowController(Product, Order, $state, $auth, PriceHelper) {
     });
   }
 
-  productsShow.calcCurrentDate = calcCurrentDate;
   productsShow.checkForOrders = checkForOrders;
   productsShow.plusOne = plusOne;
   productsShow.minusOne = minusOne;
