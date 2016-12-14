@@ -62,6 +62,11 @@ function ProductsShowController(Product, Order, $state, $auth, PriceHelper) {
 
   });
 
+  function calcCurrentDate() {
+    const now = moment().format('MMMM');    
+    console.log('clicked', now);
+  }
+
   function checkForOrders() {
     const buyerIds = productsShow.product.orders.map((order) => {
       return order.buyer.id;
@@ -108,6 +113,7 @@ function ProductsShowController(Product, Order, $state, $auth, PriceHelper) {
     });
   }
 
+  productsShow.calcCurrentDate = calcCurrentDate;
   productsShow.checkForOrders = checkForOrders;
   productsShow.plusOne = plusOne;
   productsShow.minusOne = minusOne;
