@@ -5,13 +5,13 @@ header {
     border-top: 5px solid $brand-color;
     background-color: white;
     border-bottom: 5px solid #FFFFFF;
-    height: 50px;
+    height: 45px;
     padding: 0 20px;
     .container {
       li {
         text-decoration: none;
         line-height: 50px;
-        font-size: 22px;
+        font-size: 18px;
         display: inline-block;
         float: right;
         margin-left: 10px;
@@ -25,9 +25,10 @@ header {
           }
         }
         &.logo {
+          font-size: 22px;
           float: left;
           font-family: 'Permanent Marker', cursive;
-          font-weight: bold;
+          font-weight: 800;
           font-size: 30px;
         }
       }

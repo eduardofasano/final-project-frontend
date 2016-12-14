@@ -1,9 +1,10 @@
 <section>
-  <h1>All Products On Sale</h1>
-  <h3>Search for products...</h3>
-  <input class="searchBar" type="text" ng-model="productsIndex.filter.name" placeholder="Search by product names...">
+  <h1 class="title">Shop Today's Sales...</h1>
+  <div class="searchBarDiv">
+    <input class="searchBar" type="text" ng-model="productsIndex.filter.name" placeholder="Search by product names...">
+  </div>
   <ul class="row cards">
-    <li ng-repeat="product in productsIndex.all | filter: productsIndex.filter " class="four columns cards__single">
+    <li ng-repeat="product in productsIndex.all | filter: productsIndex.filter " class="three columns cards__single">
       <a ui-sref="productsShow({ id: product.id })">
         <!-- <img ng-src=" {{ product.image }}" alt="Description", width="250" /> -->
         <div class="cards__single-image" style="background-image:url('{{ product.image }}')">

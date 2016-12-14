@@ -1,14 +1,15 @@
-<section>
+<section class="popup six columns">
   <form novalidate ng-submit="login.submit()">
     <div>
       <label>Email</label>
-      <input type="email" placeholder="Email" ng-model="login.credentials.email">
+      <input type="email" placeholder="Email" ng-model="login.credentials.email" class="u-full-width">
     </div>
     <div>
       <label>Password</label>
-      <input type="password" placeholder="Password" ng-model="login.credentials.password">
+      <input type="password" placeholder="Password" ng-model="login.credentials.password" class="u-full-width">
     </div>
 
-    <button>Login</button>
+    <button class="u-full-width">Login</button>
+    <button class="u-full-width" type="button" ui-sref="register">Not a user? Register</button>
   </form>
 </section>

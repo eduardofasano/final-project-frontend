@@ -90,6 +90,13 @@ gulp.task('html', () => {
     .pipe(livereload());
 });
 
+//assets
+gulp.task('assets', () => {
+  return gulp.src('src/assets/**/*.{ttf,woff,woff2,svg,png,jpg,jpeg}')
+    .pipe(gulp.dest('public/assets'))
+    .pipe(livereload());
+});
+
 // nodemon
 gulp.task('nodemon', () => {
   return nodemon()
@@ -101,13 +108,13 @@ gulp.task('nodemon', () => {
 });
 
 // watch
-
 gulp.task('watch', () => {
   livereload.listen();
   gulp.watch('src/**/*.html', ['html']);
   gulp.watch('src/**/*.js', ['scripts']);
   gulp.watch('src/**/*.scss', ['styles']);
   gulp.watch('src/**/*.scss', ['styles', 'styles:vendor']);
+  gulp.watch('src/assets/**/*', ['assets']);
 });
 
-gulp.task('default', sequence('clean', ['bower:js', 'bower:css'], ['scripts', 'styles', 'styles:vendor', 'html'], 'watch', 'nodemon'));
+gulp.task('default', sequence('clean', ['bower:js', 'bower:css'], ['scripts', 'styles', 'styles:vendor', 'html', 'assets'], 'watch', 'nodemon'));

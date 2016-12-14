@@ -1,11 +1,6 @@
-.searchBar {
-  width: 50%;
-  align-items: center;
-}
-
 .cards {
   list-style: none;
-  &__single:nth-child(3n+1) {
+  &__single:nth-child(4n+1) {
     margin-left: 0;
   }
   &__single-image {
@@ -29,23 +24,27 @@
     background-color: rgba(255, 255, 255, 0.75);
     padding: 10px;
     position: absolute;
-    bottom: -100px;
+    bottom: -75px;
     left: 0;
     right: 0;
     transition: all 0.4s ease;
     .productName {
-      font-weight: bold;
-      line-height: 15px;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 10px;
     }
     .sellerName {
-      font-size: 24px;
-      line-height: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 10px;
     }
     .priceInfo {
-      font-size: 24px;
-      line-height: 20px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 10px;
     }
     a {
+      font-size: 10px;
       text-decoration: none;
     }
   }

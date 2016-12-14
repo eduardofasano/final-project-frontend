@@ -1,24 +1,21 @@
-<form novalidate ng-submit="register.submit()">
-  <div>
-    <label>Username</label>
-    <input type="text" placeholder="Username" ng-model="register.user.username">
-  </div>
-  <div>
-    <label>Email</label>
-    <input type="email" placeholder="Email" ng-model="register.user.email">
-  </div>
-  <div>
-    <label>Role</label>
-    <input type="text" placeholder="Role" ng-model="register.user.role">
-  </div>
-  <div>
-    <label>Password</label>
-    <input type="password" placeholder="Password" ng-model="register.user.password">
-  </div>
-  <div>
-    <label>Password Confirmation</label>
-    <input type="password" placeholder="Password Confirmation" ng-model="register.user.password_confirmation">
-  </div>
-
-  <button>Register</button>
-</form>
+<section class="popup six columns">
+  <form novalidate ng-submit="register.submit()">
+    <div>
+      <label>Username</label>
+      <input type="text" placeholder="Username" ng-model="register.user.username" class="u-full-width">
+    </div>
+    <div>
+      <label>Email</label>
+      <input type="email" placeholder="Email" ng-model="register.user.email" class="u-full-width">
+    </div>
+    <div>
+      <label>Password</label>
+      <input type="password" placeholder="Password" ng-model="register.user.password" class="u-full-width">
+    </div>
+    <div>
+      <label>Password Confirmation</label>
+      <input type="password" placeholder="Password Confirmation" ng-model="register.user.password_confirmation" class="u-full-width">
+    </div>
+    <button class="u-full-width">Register</button>
+  </form>
+</section>

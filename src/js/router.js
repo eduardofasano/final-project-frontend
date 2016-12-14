@@ -64,7 +64,13 @@ function Router($stateProvider, $urlRouterProvider) {
       url: '/orders/new',
       templateUrl: '/templates/ordersNew.html',
       controller: 'OrdersNewController as ordersNew'
-    });
+    })
+
+  //Static Route
+  .state('home', {
+    url: '/',
+    templateUrl: '/templates/home.html'
+  });
 
   $urlRouterProvider.otherwise('/products');
 }
