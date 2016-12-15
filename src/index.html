@@ -24,6 +24,6 @@
       </ul>
     </nav>
   </header>
-    <main ui-view class="container"></main>
+    <main ui-view ng-class="{'container': main.stateName !=='home'}"></main>
 </body>
 </html>
