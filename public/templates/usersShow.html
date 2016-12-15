@@ -1,18 +1,38 @@
 <section ng-controller="ProductsIndexController as productsIndex" >
 
-  <h3 class="user-show-title">Hey {{ main.user.username }}!<br> Here is all of your gorgeous produce and the current price it's selling for 🌽💰</h2>
-  <ul class="row cards">
-    <li ng-repeat="product in productsIndex.all" ng-if="main.user.id == product.seller.id" class="three columns cards__single">
-      <a ui-sref="productsShow({ id: product.id })">
-        <div class="cards__single-image" style="background-image:url('{{ product.image1 }}')">
-          <div class="cards__single-details">
-            <h4 class="productName">{{ product.name }}</h4>
-            <h4 class="priceInfo">Current Price: {{ product.currency }}{{ product.final_price | number:2 }}/{{ product.unit }}</h4>
+  <!-- SELLER PRODUCTS FOR BUYER -->
+  <div ng-show="!main.isSeller">
+    <h3 class="user-show-title">These are all of {{ usersShow.user.username }}'s products! Don't they look delicious?</h3>
+    <ul class="row cards">
+      <li ng-repeat="product in productsIndex.all" ng-if="usersShow.user.id == product.seller.id" class="three columns cards__single">
+        <a ui-sref="productsShow({ id: product.id })">
+          <div class="cards__single-image" style="background-image:url('{{ product.image1 }}')">
+            <div class="cards__single-details">
+              <h4 class="productName">{{ product.name }}</h4>
+              <h4 class="priceInfo">Current Price: {{ product.currency }}{{ product.final_price | number:2 }}/{{ product.unit }}</h4>
+            </div>
           </div>
-        </div>
-      </a>
-    </li>
-  <ul>
+        </a>
+      </li>
+    <ul>
+  </div>
+
+  <!-- OWN PRODUCTS FOR SELLERS -->
+  <div ng-show="main.isSeller">
+    <h3 class="user-show-title">Hey {{ main.user.username }}!<br> Here is all of your gorgeous produce and the current price it's selling for 🌽💰</h3>
+    <ul class="row cards">
+      <li ng-repeat="product in productsIndex.all" ng-if="main.user.id == product.seller.id" class="three columns cards__single">
+        <a ui-sref="productsShow({ id: product.id })">
+          <div class="cards__single-image" style="background-image:url('{{ product.image1 }}')">
+            <div class="cards__single-details">
+              <h4 class="productName">{{ product.name }}</h4>
+              <h4 class="priceInfo">Current Price: {{ product.currency }}{{ product.final_price | number:2 }}/{{ product.unit }}</h4>
+            </div>
+          </div>
+        </a>
+      </li>
+    <ul>
+  </div>
   <!-- <a ng-if="usersShow.isLoggedIn()" ui-sref="usersEdit({ id: usersShow.user.id })" class="button">Edit</a>
   <button n class="priceInfo"g-if="usersShow.isLoggedIn()" ng-click="usersShow.delete()">Delete</button> -->
 </section>
