@@ -18,7 +18,7 @@
           </a>
           <section ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
             <p class="price"><strong>Current Price:</strong> {{ productsShow.product.currency }}{{ productsShow.product.final_price | number:2 }}/{{ productsShow.product.unit }}</p>
-            <p class="price"><strong>Possible Price:</strong> {{ productsShow.product.currency }}{{ productsShow.product.min_price | number:2 }}/{{ productsShow.product.unit }} <sup>*</sup><i>(promised price if {{ productsShow.product.seller.username }} meets her sale target)</i></p>
+            <p class="price"><strong>Possible Price:</strong> {{ productsShow.product.currency }}{{ productsShow.product.min_price | number:2 }}/{{ productsShow.product.unit }} <sup>*</sup><i>(promised price if available quanity sold out)</i></p>
             <p class="quantity"><strong>Available Quantity:</strong> {{ productsShow.product.quantity | number:1 - productsShow.product.current_quantity | number:1 }} {{ productsShow.product.unit }}</p>
             <label class="productLabel">Product Description: </label>
             <p class="productDescription">{{ productsShow.product.description }}</p>
