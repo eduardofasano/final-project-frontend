@@ -1,15 +1,67 @@
 .timer {
   text-align: center;
-  // display: block;
-  // margin: 0 auto;
-  // margin-left: 20%;
-  // margin-right: 20%;
-  // width: 55%;
-  padding-bottom: 30px;
-  font-size: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 30px;
   font-weight: 800;
+  .saleRed {
+    color: red;
+  }
 }
 
 .infoBox {
   float: right;
+  .productName {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-weight: 800;
+  }
+  .sellerName {
+    margin-bottom: 0px;
+    font-weight: 400;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+  }
+  .price {
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+  }
+  .quantity {
+    font-size: 16px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+    margin-bottom: 0px;
+  }
+  .productLabel {
+    margin-top: 10px;
+  }
+  .productDescription {
+    margin-bottom: 0px;
+  }
+  li {
+    list-style: none;
+    text-align: left;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.photoBox {
+  margin: 0;
+  #top-image {
+    height: 550px;
+    width:auto;
+  }
+  #left-bottom-image {
+    height: 260px;
+    float: left;
+  }
+  #right-bottom-image {
+    height: 260px;
+    float: right;
+  }
 }

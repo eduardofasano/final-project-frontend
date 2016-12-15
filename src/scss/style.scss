@@ -15,7 +15,7 @@ body {
   background-color: #f9f9f9;
   padding-top: 50px;
   main.container {
-    padding-top: 40px;
+    // padding-top: 40px;
   }
   .container {
     max-width: 1200px;
@@ -56,7 +56,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.65);
     text-align: center;
     h1 {
       position: absolute;
@@ -71,6 +71,13 @@ body {
       }
     }
   }
+}
+
+.ordersHead {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 30px;
+  font-weight: 800;
 }
 
 .orders {
@@ -107,7 +114,8 @@ body {
     margin: 0;
   }
   button {
-    background-color: green;
+    background-color: $brand-color;
+    opacity: 0.8;
     color: white;
     font-size: 14px;
     border: 0;
