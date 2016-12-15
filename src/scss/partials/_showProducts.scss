@@ -39,6 +39,22 @@
   }
   .productDescription {
     margin-bottom: 0px;
+    // // padding-bottom: 10px;
+    // border-bottom: 1px solid black;
+  }
+  .outOfStock {
+    margin-top: 40px;
+    font-weight: 800;
+    font-size: 30px;
+  }
+  .saleOver {
+    margin-top: 40px;
+    font-weight: 800;
+    font-size: 30px;
+  }
+  .updateOrder {
+    font-weight: 600;
+    font-size: 30px;
   }
   li {
     list-style: none;
@@ -52,16 +68,23 @@
 
 .photoBox {
   margin: 0;
-  #top-image {
-    height: 550px;
-    width:auto;
+  &.image {
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 10px;
+    margin-top: 10px;
   }
-  #left-bottom-image {
-    height: 260px;
+  &#top-image {
+    height: 325px;
+  }
+  &#left-bottom-image {
+    height: 175px;
     float: left;
   }
-  #right-bottom-image {
-    height: 260px;
+  &#right-bottom-image {
+    height: 175px;
     float: right;
   }
 }

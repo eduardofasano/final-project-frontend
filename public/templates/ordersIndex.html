@@ -1,6 +1,9 @@
 <!-- BUYER SECTION -->
-<div class="ordersHead">
+<div ng-hide="main.isSeller" class="ordersHead">
   Here are your orders...
+</div>
+<div ng-show="main.isSeller" class="ordersHead">
+  Here are your outstanding orders...
 </div>
 <section class="row">
   <ul class="orders">
@@ -10,19 +13,19 @@
       </div>
 
       <div class="two columns">
-        <p>{{ order.product.name }}</p>
+        <p><strong>Product:</strong><br>{{ order.product.name }}</p>
       </div>
 
       <div class="two columns">
-        <p>Seller: {{ order.product.seller.username }}</p>
+        <p><strong>Seller:</strong><br>{{ order.product.seller.username }}</p>
       </div>
 
       <div class="two columns">
-        <p>Ordered Quantity: {{ order.quantity }}</p>
+        <p><strong>Ordered Quantity:</strong><br> {{ order.quantity }}{{ order.product.unit }}</p>
       </div>
 
       <div class="two columns">
-        <p>Current Price: {{ order.product.currency }}{{ order.product.final_price | number:2 }}/{{ order.product.unit }}</p>
+        <p><strong>Current Price:</strong><br> {{ order.product.currency }}{{ order.product.final_price | number:2 }}/{{ order.product.unit }}</p>
       </div>
 
       <div class="two columns">
@@ -30,18 +33,9 @@
         <button ng-click="ordersIndex.delete(order)">Delete</button>
       </div>
 
-
-
-
-
-
       <!-- HIDDEN/SHOWN BUYER EDIT FORM -->
       <div ng-show="order.showEditFormValue" class="twelve columns">
         <h4>Edit your order below...</h4>
-        <!-- <div>Total Available Cheese: {{order.product.quantity}}</div>
-        <div>Already Ordered Cheese (pre-update): {{order.product.current_quantity}}</div>
-        <div>Original Cheese Order (pre-update): {{order.originalQuantity}}</div> -->
-        <!-- {{order.product.quantity - (order.product.current_quantity - order.originalQuantity)}} -->
         <div ng-show="order.showEditFormValue">
           <form ng-submit="ordersIndex.update(order)">
             <input
@@ -64,12 +58,20 @@
 
 <!-- HIDDEN/SHOWN SELLER SECTION -->
 <section ng-show="main.isSeller">
-  <h1>Here are your outstanding orders...</h1>
   <ul ng-repeat="product in ordersIndex.currentUser.products">
     <li ng-hide="product.orders.length < 1"class="productCard" ng-click="ordersIndex.showOrders(product)">
-      <h3>Product: {{ product.name }}</h3>
-      <h5>Number of Orders: {{product.orders.length}}</h5>
-      <img ng-src="{{ product.image }}", width="250"/>
+    <div class="four columns">
+      <img ng-src="{{ product.image }}"/>
+    </div>
+
+    <div class="four columns">
+      <p><strong>Product:</strong><br>{{ product.name }}</p>
+    </div>
+
+    <div class="four columns">
+      <p><strong>Number of Orders:</strong><br>{{ product.orders.length }}</p>
+    </div>
+  
       <ul ng-show="product.showOrderList">
         <li ng-repeat="order in product.orders">
           <img ng-src="{{ order.buyer.products[0].image }}", width="250"/>

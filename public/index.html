@@ -24,6 +24,6 @@
       </ul>
     </nav>
   </header>
-    <main ui-view ng-class="{'container': main.stateName !=='home'}"></main>
+    <main ui-view ng-class="{'container': !(['home', 'login', 'register'].includes(main.stateName))}"></main>
 </body>
 </html>

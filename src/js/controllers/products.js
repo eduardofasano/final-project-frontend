@@ -61,7 +61,12 @@ function ProductsShowController(Product, Order, $state, $auth, PriceHelper, $win
     }
 
     //TIME CALCULATION
-    productsShow.countdown = $window.moment().diff(new $window.moment(productsShow.product.enddate))*-1/1000;
+    if ($window.moment().diff(new $window.moment(productsShow.product.enddate))*-1/1000 > 0) {
+      productsShow.countdown = $window.moment().diff(new $window.moment(productsShow.product.enddate))*-1/1000;
+    } else {
+      productsShow.countdown = 0;
+    }
+
     // productsShow.countdown = 0;
     console.log(productsShow.countdown);
 

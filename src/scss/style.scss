@@ -68,6 +68,9 @@ body {
       font-size: 60px;
       @media screen and (max-width: 767px) {
         font-size: 40px;
+        .emoji-font {
+          font-size: 80px;
+        }
       }
     }
   }

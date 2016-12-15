@@ -2,7 +2,7 @@
   <h2>{{ usersShow.user.username }}</h2>
   <h4>{{ usersShow.user.email }}</h4>
   <ul class="row cards">
-    <li ng-repeat="product in productsIndex.all" ng-if="usersShow.user.id == product.seller.id" class="four columns cards__single">
+    <li ng-repeat="product in productsIndex.all" ng-if="usersShow.user.id == product.seller.id" class="three columns cards__single">
       <a ui-sref="productsShow({ id: product.id })">
         <div class="cards__single-image" style="background-image:url('{{ product.image }}')">
           <div class="cards__single-details">

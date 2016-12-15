@@ -1,13 +1,12 @@
 <section>
-  <timer ng-class="{'saleRed': productsShow.countdown <= 7200}" class="twelve columns timer" countdown="productsShow.countdown" interval="1000" ng-if="productsShow.countdown >= 0">Flash Sale Ends In: {{days}} day{{dayS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
+  <timer ng-class="{'saleRed': productsShow.countdown <= 7200}" class="twelve columns timer" countdown="productsShow.countdown" interval="1000" ng-if="productsShow.countdown >= 0">Flash Sale Ends In: {{days}} days{{dayS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
   <section class="row">
-    <div class="six columns photoBox" id="top-image">
-      <img ng-src="{{ productsShow.product.image }}", width="600"/>
-      <div class="six columns photoBox" id="right-bottom-image">
-        <img ng-src="{{ productsShow.product.image }}", width="325"/>
+    <div class="six columns">
+      <div class="twelve columns photoBox image" id="top-image" style="background-image:url('{{ productsShow.product.image }}')">
       </div>
-      <div class="six columns photoBox" id="left-bottom-image">
-        <img ng-src="{{ productsShow.product.image }}", width="325"/>
+      <div class="six columns photoBox image" id="left-bottom-image" style="background-image:url('{{ productsShow.product.image }}')">
+      </div>
+      <div class="six columns photoBox image" id="right-bottom-image" style="background-image:url('{{ productsShow.product.image }}')">
       </div>
     </div>
     <section class="six columns infoBox">
@@ -18,17 +17,17 @@
             <h5 class="sellerName">Sold by: {{ productsShow.product.seller.username }}</h5>
           </a>
           <section ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
-            <p class="price">Current Price: {{ productsShow.product.currency }} {{ productsShow.product.final_price }}/{{ productsShow.product.unit }}</p>
-            <p class="price">Possible Price: {{ productsShow.product.currency }} {{ productsShow.product.min_price }}/{{ productsShow.product.unit }}</p>
-            <p class="quantity">Available Quantity: {{ productsShow.product.quantity - productsShow.product.current_quantity }} {{ productsShow.product.unit }}</p>
+            <p class="price"><strong>Current Price:</strong> {{ productsShow.product.currency }}{{ productsShow.product.final_price | number:2 }}/{{ productsShow.product.unit }}</p>
+            <p class="price"><strong>Possible Price:</strong> {{ productsShow.product.currency }}{{ productsShow.product.min_price | number:2 }}/{{ productsShow.product.unit }}</p>
+            <p class="quantity"><strong>Available Quantity:</strong> {{ productsShow.product.quantity | number:1 - productsShow.product.current_quantity | number:1 }} {{ productsShow.product.unit }}</p>
             <label class="productLabel">Product Description: </label>
             <p class="productDescription">{{ productsShow.product.description }}</p>
           </section>
           <div ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) >= 0 || productsShow.countdown <= 0">
-            <h3>OUT OF STOCK</h3>
+            <h3 class="outOfStock">Out of Stock! But check again cause you never know 😏 </h3>
           </div>
           <div ng-show="productsShow.countdown <= 0">
-            <h3>Sorry, the flash sale is now over...</h3>
+            <h3 class="saleOver">Sorry, this flash sale is now over 😔 </h3>
           </div>
         </li>
       </ul>
@@ -36,6 +35,7 @@
       <!--POST ORDER FOR BUYER-->
       <div ng-hide="productsShow.countdown <= 0">
           <section ng-if="productsShow.product.orders && productsShow.checkForOrders()">
+            <h3 class="updateOrder">Hmm - looks like you've already ordered some delicious {{ productsShow.product.name }} from {{ productsShow.product.seller.username }}. Do you wanna update your order? 😋</h3>
             <button ui-sref="ordersIndex">Update Order</button>
           </section>
 
