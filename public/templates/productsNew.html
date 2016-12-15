@@ -1,4 +1,7 @@
 <section class="row">
+  <div ng-show="main.isSeller" class="ordersHead">
+    This is where it all begins 🚀
+  </div>
   <form ng-submit="productsNew.create()">
     <div class="twelve columns">
       <label>Product Name</label>
@@ -25,8 +28,16 @@
       <input type="text" name="description" placeholder="Insert a description of the story behind your product..." ng-model="productsNew.product.description" class="u-full-width">
     </div>
     <div class="twelve columns">
-      <label>Image</label>
-      <input type="text" name="description" placeholder="Insert an image URL of your product..." ng-model="productsNew.product.image" class="u-full-width">
+      <label>First Image</label>
+      <input type="text" name="description" placeholder="Insert the first image URL of your product..." ng-model="productsNew.product.image1" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Second Image</label>
+      <input type="text" name="description" placeholder="Insert the second image URL of your product..." ng-model="productsNew.product.image2" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Third Image</label>
+      <input type="text" name="description" placeholder="Insert the third image URL of your product..." ng-model="productsNew.product.image3" class="u-full-width">
     </div>
     <div class="twelve columns">
       <label>Sale end Date</label>

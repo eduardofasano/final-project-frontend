@@ -1,3 +1,6 @@
+<div class="editProductDiv">
+  <h3>It's ok, no one gets it right the first time ✏️</h3>
+</div>
 <section class="row">
   <form ng-submit="productsEdit.update()">
     <div class="twelve columns">
@@ -9,8 +12,16 @@
       <input type="text" name="name" value="productsEdit.product.unit" ng-model="productsEdit.product.unit" class="u-full-width">
     </div>
     <div class="twelve columns">
-      <label>Image</label>
-      <input type="text" name="image" value="productsEdit.product.image" ng-model="productsEdit.product.image" class="u-full-width">
+      <label>First Image</label>
+      <input type="text" name="image1" value="productsEdit.product.image1" ng-model="productsEdit.product.image1" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Second Image</label>
+      <input type="text" name="image2" value="productsEdit.product.image2" ng-model="productsEdit.product.image2" class="u-full-width">
+    </div>
+    <div class="twelve columns">
+      <label>Third Image</label>
+      <input type="text" name="image3" value="productsEdit.product.image3" ng-model="productsEdit.product.image3" class="u-full-width">
     </div>
     <button>Update</button>
   </form>

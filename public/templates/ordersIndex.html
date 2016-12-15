@@ -1,15 +1,15 @@
 <!-- BUYER SECTION -->
-<div ng-hide="main.isSeller" class="ordersHead">
-  Here are your orders...
-</div>
 <div ng-show="main.isSeller" class="ordersHead">
-  Here are your outstanding orders...
+  Here are your outstanding orders, better start getting ready...
+</div>
+<div ng-show="!main.isSeller" class="ordersHead">
+  Here are your orders, this looks soo good 👌
 </div>
 <section class="row">
   <ul class="orders">
     <li ng-repeat="order in ordersIndex.all">
       <div class="two columns">
-        <img ng-src="{{ order.product.image }}"/>
+        <img ng-src="{{ order.product.image1 }}"/>
       </div>
 
       <div class="two columns">
@@ -34,10 +34,11 @@
       </div>
 
       <!-- HIDDEN/SHOWN BUYER EDIT FORM -->
-      <div ng-show="order.showEditFormValue" class="twelve columns">
-        <h4>Edit your order below...</h4>
+      <div ng-show="order.showEditFormValue">
+        <h4 class="12 columns">Edit your order below...</h4>
         <div ng-show="order.showEditFormValue">
           <form ng-submit="ordersIndex.update(order)">
+            <div class="row">
             <input
               type="number"
               name="quantity"
@@ -45,11 +46,12 @@
               ng-model="order.quantity"
               max="{{order.product.quantity - (order.product.current_quantity - order.originalQuantity)}}"
               min="1"
-              class="u-full-width">
-            <button type="button" ng-click="ordersIndex.plusOne(order)">+1</button>
-            <button type="button" ng-click="ordersIndex.minusOne(order)" ng-disabled="order.quantity<=1">-1</button>
-            <button type="submit">Update</button>
-            <button type="button" ng-click="ordersIndex.toggleEditForm(order)">Hide</button>
+              class="two columns">
+            <button class="two columns" type="button" ng-click="ordersIndex.plusOne(order)">+1</button>
+            <button class="two columns" type="button" ng-click="ordersIndex.minusOne(order)" ng-disabled="order.quantity<=1">-1</button>
+            <button class="two columns" type="submit">Update</button>
+            <button class="two columns" type="button" ng-click="ordersIndex.toggleEditForm(order)">Hide</button>
+            </div>
           </form>
       </div>
     </li>
@@ -59,24 +61,29 @@
 <!-- HIDDEN/SHOWN SELLER SECTION -->
 <section ng-show="main.isSeller">
   <ul ng-repeat="product in ordersIndex.currentUser.products">
-    <li ng-hide="product.orders.length < 1"class="productCard" ng-click="ordersIndex.showOrders(product)">
-    <div class="four columns">
-      <img ng-src="{{ product.image }}"/>
-    </div>
+    <li ng-hide="product.orders.length < 1" class="main-order-list" ng-click="ordersIndex.showOrders(product)">
+      <div class="row">
+        <div class="two columns">
+          <img ng-src="{{ product.image1 }}"/>
+        </div>
 
-    <div class="four columns">
-      <p><strong>Product:</strong><br>{{ product.name }}</p>
-    </div>
+        <div class="five columns">
+          <p><strong>Product:</strong><br>{{ product.name }}</p>
+        </div>
 
-    <div class="four columns">
-      <p><strong>Number of Orders:</strong><br>{{ product.orders.length }}</p>
-    </div>
-  
-      <ul ng-show="product.showOrderList">
-        <li ng-repeat="order in product.orders">
-          <img ng-src="{{ order.buyer.products[0].image }}", width="250"/>
-          <h4>Ordered Quantity: {{ order.quantity }}</h4>
-          <h4>Buyer: {{ order.buyer.username }}</h4>
+        <div class="five columns">
+          <p><strong>Number of Orders:</strong><br>{{ product.orders.length }}</p>
+        </div>
+      </div>
+
+      <ul ng-show="product.showOrderList" class="order-list">
+        <li ng-repeat="order in product.orders" class="row">
+          <div class="three columns">
+            <p><strong>Ordered Quantity:</strong> {{ order.quantity }}</p>
+          </div>
+          <div class="three columns">
+            <p><strong>Buyer:</strong> {{ order.buyer.username }}</p>
+          </div>
         </li>
       </ul>
     </li>

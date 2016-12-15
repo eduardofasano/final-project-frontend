@@ -1,10 +1,10 @@
 <section ng-controller="ProductsIndexController as productsIndex" >
-  <h2>{{ usersShow.user.username }}</h2>
-  <h4>{{ usersShow.user.email }}</h4>
+
+  <h3 class="user-show-title">Hey {{ main.user.username }}!<br> Here is all of your gorgeous produce and the current price it's selling for 🌽💰</h2>
   <ul class="row cards">
-    <li ng-repeat="product in productsIndex.all" ng-if="usersShow.user.id == product.seller.id" class="three columns cards__single">
+    <li ng-repeat="product in productsIndex.all" ng-if="main.user.id == product.seller.id" class="three columns cards__single">
       <a ui-sref="productsShow({ id: product.id })">
-        <div class="cards__single-image" style="background-image:url('{{ product.image }}')">
+        <div class="cards__single-image" style="background-image:url('{{ product.image1 }}')">
           <div class="cards__single-details">
             <h4 class="productName">{{ product.name }}</h4>
             <h4 class="priceInfo">Current Price: {{ product.currency }}{{ product.final_price | number:2 }}/{{ product.unit }}</h4>

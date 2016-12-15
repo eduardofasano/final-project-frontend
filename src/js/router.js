@@ -72,5 +72,5 @@ function Router($stateProvider, $urlRouterProvider) {
     templateUrl: '/templates/home.html'
   });
 
-  $urlRouterProvider.otherwise('/products');
+  $urlRouterProvider.otherwise('/');
 }

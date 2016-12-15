@@ -6,8 +6,8 @@
   <ul class="row cards">
     <li ng-repeat="product in productsIndex.all | filter: productsIndex.filter " class="three columns cards__single">
       <a ui-sref="productsShow({ id: product.id })">
-        <!-- <img ng-src=" {{ product.image }}" alt="Description", width="250" /> -->
-        <div class="cards__single-image" style="background-image:url('{{ product.image }}')">
+        <!-- <img ng-src=" {{ product.image1 }}" alt="Description", width="250" /> -->
+        <div class="cards__single-image" style="background-image:url('{{ product.image1 }}')">
           <div class="cards__single-details">
             <h4 class="productName">{{ product.name }}</h4>
             <a ui-sref="usersShow({ id: product.seller.id })">

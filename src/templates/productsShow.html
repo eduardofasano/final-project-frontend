@@ -2,11 +2,11 @@
   <timer ng-class="{'saleRed': productsShow.countdown <= 7200}" class="twelve columns timer" countdown="productsShow.countdown" interval="1000" ng-if="productsShow.countdown >= 0">Flash Sale Ends In: {{days}} days{{dayS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
   <section class="row">
     <div class="six columns">
-      <div class="twelve columns photoBox image" id="top-image" style="background-image:url('{{ productsShow.product.image }}')">
+      <div class="twelve columns photoBox image" id="top-image" style="background-image:url('{{ productsShow.product.image1 }}')">
       </div>
-      <div class="six columns photoBox image" id="left-bottom-image" style="background-image:url('{{ productsShow.product.image }}')">
+      <div class="six columns photoBox image" id="left-bottom-image" style="background-image:url('{{ productsShow.product.image2 }}')">
       </div>
-      <div class="six columns photoBox image" id="right-bottom-image" style="background-image:url('{{ productsShow.product.image }}')">
+      <div class="six columns photoBox image" id="right-bottom-image" style="background-image:url('{{ productsShow.product.image3 }}')">
       </div>
     </div>
     <section class="six columns infoBox">
@@ -18,7 +18,7 @@
           </a>
           <section ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) <= 0">
             <p class="price"><strong>Current Price:</strong> {{ productsShow.product.currency }}{{ productsShow.product.final_price | number:2 }}/{{ productsShow.product.unit }}</p>
-            <p class="price"><strong>Possible Price:</strong> {{ productsShow.product.currency }}{{ productsShow.product.min_price | number:2 }}/{{ productsShow.product.unit }}</p>
+            <p class="price"><strong>Possible Price:</strong> {{ productsShow.product.currency }}{{ productsShow.product.min_price | number:2 }}/{{ productsShow.product.unit }} <sup>*</sup><i>(promised price if {{ productsShow.product.seller.username }} meets her sale target)</i></p>
             <p class="quantity"><strong>Available Quantity:</strong> {{ productsShow.product.quantity | number:1 - productsShow.product.current_quantity | number:1 }} {{ productsShow.product.unit }}</p>
             <label class="productLabel">Product Description: </label>
             <p class="productDescription">{{ productsShow.product.description }}</p>
@@ -26,7 +26,15 @@
           <div ng-hide="(productsShow.product.quantity - productsShow.product.current_quantity) >= 0 || productsShow.countdown <= 0">
             <h3 class="outOfStock">Out of Stock! But check again cause you never know 😏 </h3>
           </div>
-          <div ng-show="productsShow.countdown <= 0">
+
+          <!--EDIT OBJECT FOR SELLER-->
+          <div ng-show="productsShow.isOwnProduct" class="editDiv">
+            <h3>See anything you want to change {{ productsShow.product.seller.username }}?</h3>
+            <a ng-if="productsShow.isLoggedIn()" ui-sref="productsEdit({ id: productsShow.product.id })" class="button">Edit</a>
+            <button ng-if="productsShow.isLoggedIn()" ng-click="productsShow.delete({ id: productsShow.product.id })">Delete</button>
+          </div>
+
+          <div ng-show="productsShow.countdown <= 0 && !main.isSeller">
             <h3 class="saleOver">Sorry, this flash sale is now over 😔 </h3>
           </div>
         </li>
@@ -62,10 +70,4 @@
         </div>
       </section>
     </section>
-
-  <!--EDIT OBJECT FOR SELLER-->
-  <a ng-show="productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()" ui-sref="productsEdit({ id: productsShow.product.id })" class="button">Edit</a>
-  <button ng-show="productsShow.isOwnProduct" ng-if="productsShow.isLoggedIn()" ng-click="productsShow.delete({ id: productsShow.product.id })">Delete</button>
-
-
 </section>
